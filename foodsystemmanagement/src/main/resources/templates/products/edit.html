@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xlmns:th="http://www.thymleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>商品編集</title>
+</head>
+<body>
+	<form th:action="@{/products/update}"
+	      th:object="${product}"
+	      method="post">
+
+	    <input type="hidden" th:field="*{id}">
+
+	    商品コード
+	    <input type="text" th:field="*{productCode}">
+	    <br>
+
+	    商品名
+	    <input type="text" th:field="*{productName}">
+	    <br>
+
+	    価格
+	    <input type="number" th:field="*{price}">
+	    <br>
+
+	    賞味期限
+	    <input type="date" th:field="*{expirationDate}">
+	    <br>
+
+	    <button>更新</button>
+
+	</form>
+</body>
+</html>

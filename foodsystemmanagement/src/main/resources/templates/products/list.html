@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>商品一覧</title>
+</head>
+<body>
+
+	<h1>商品一覧</h1>
+	
+	
+	
+	<table border="1">
+		<tr>
+			<th>ID</th>
+			<th>商品コード</th>
+			<th>商品名</th>
+			<th>単価</th>
+			<th>賞味期限</th>
+		</tr>
+		
+		<tr th:each="product:${productList}">
+			<td th:text="${product.id}"></td>
+			<td th:text="${product.productCode}"></td>
+			<td>
+			<a th:href="@{/products/edit/{id}(id=${product.id})}">編集</a>
+			</td>
+			<td th:text="${product.productName}"></td>
+			<td th:text="${product.price}"></td>
+			<td th:text="${product.expirationDate}"></td>
+		</tr>
+	</table>
+	
+
+	<a href="">管理画面へ戻る</a>
+	
+</body>
+</html>
