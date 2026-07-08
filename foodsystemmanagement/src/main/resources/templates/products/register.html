@@ -5,7 +5,6 @@
 <title>商品登録</title>
 </head>
 <body>
-
 	<h1>商品登録</h1>
 	<form th:action="@{/products}" th:object="${product}" method="post">
 		商品コード
@@ -17,10 +16,10 @@
 		単価
 		<input type="text" th:field="*{price}">
 		<br>
-		
+		<button type="submit">登録</button>
 	</form>
 	
-	<a href="">製品一覧へ戻る</a>
+	<a th:href="@{/products/list}">製品一覧へ戻る</a>
 	<a href="">管理TOPへ戻る</a>
 	
 </body>

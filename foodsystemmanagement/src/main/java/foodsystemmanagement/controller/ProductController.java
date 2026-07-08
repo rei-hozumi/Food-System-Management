@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
@@ -19,7 +20,7 @@ public class ProductController {
 		this.productService=productService;
 	}
 	
-	//商品一覧画面
+	//商品一覧
 	@GetMapping("/products/list")
 		public String list(Model model) {
 			List<Product>productList = productService.findAll();
@@ -34,10 +35,14 @@ public class ProductController {
 		return "products/register";
 	}
 	@PostMapping("/products")
-		public String create(Product product) {
+		public String create(@ModelAttribute Product product) {
 			productService.save(product);
-			return"redirect:/products";
+			return"redirect:/products/registrationcomplete";
 		}
+	@GetMapping("/products/registrationcomplete")
+		public String registrationComplete() {
+		return "products/registrationcomplete";
+	}
 		
 	//商品編集
 	@GetMapping("/products/edit/{id}")
