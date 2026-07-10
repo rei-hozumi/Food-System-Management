@@ -46,11 +46,12 @@ public class ProductController {
 			model.addAttribute("products",product);
 			return "products/edit";
 		}
-	
 	@PostMapping("/products/update")
 		public String update(Product product) {
 			productService.update(product);
 			return "redirect:/products/list";
 		}
+	
+
 	
 }

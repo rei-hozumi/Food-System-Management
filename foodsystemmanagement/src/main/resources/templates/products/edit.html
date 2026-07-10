@@ -1,10 +1,13 @@
 <!DOCTYPE html>
-<html xlmns:th="http://www.thymleaf.org">
+<html xmlns:th="http://www.thymleaf.org">
 <head>
 <meta charset="UTF-8">
 <title>商品編集</title>
 </head>
 <body>
+	
+	<h1>${prodcut.name} の編集</h1>
+	
 	<form th:action="@{/products/update}"
 	      th:object="${product}"
 	      method="post">
