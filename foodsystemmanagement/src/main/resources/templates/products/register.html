@@ -5,13 +5,15 @@
 <title>商品登録</title>
 </head>
 <body>
-	<h1>商品登録</h1>
+	<h1>商品管理（登録）</h1>
 	<form th:action="@{/products}" th:object="${product}" method="post">
 		商品コード
 		<input type="text" th:field="*{productCode}">
+		<div th:if="${#fields.hasErrors('productCode')}" th:errors="*{productCode}"></div>
 		<br>
 		商品名
 		<input type="text" th:field="*{productName}">
+		<div th:if="${#fields.hasErrors('productName')}" th:errors="*{productName}"></div>
 		<br>
 		単価
 		<input type="text" th:field="*{price}">
