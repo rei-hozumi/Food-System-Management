@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymleaf.org">
+<head>
+<meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- リセットCSS -->
+        <link rel="stylesheet" href="https://unpkg.com/ress/dist/ress.min.css">
+
+    <!-- Googleフォント -->
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Philosopher&display=swap" rel="stylesheet">
+        
+    <!-- オリジナルCSS -->
+        <link rel="stylesheet" href="css/login.css">
+
+<link rel="stylesheet" href="css/style.css">
+<title>Food System Management - ログイン</title>
+</head>
+
+<header>
+    <div class="version">Ver.1.0</div>
+
+    <h1 class="title">Food System Management</h1>
+    <br>
+	<div class="header-right">
+			<button>終了</button>
+	</div>
+</header>
+
+<body>
+
+    <h2>ログイン</h2>
+
+    <form th:action="@{/login}" method="post">
+        <div class="form-group">
+            <label>社員番号：</label>
+            <input type="text" name="employeeId">
+            <label>パスワード：</label>
+            <input type="password" name="password">
+        </div>
+
+        <button type="submit" class="login-btn">ログイン</button>
+
+    </form>
+
+
+
+</body>
+</html>

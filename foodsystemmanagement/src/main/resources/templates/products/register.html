@@ -1,26 +1,94 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-<meta charset="UTF-8">
-<title>商品登録</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" href="https://unpkg.com/ress/dist/ress.min.css">
+     <link rel="stylesheet" th:href="@{/css/products.css}">
+
+    <title>商品登録 - Food System Management</title>
 </head>
+
 <body>
-	<h1>商品登録</h1>
-	<form th:action="@{/products}" th:object="${product}" method="post">
-		商品コード
-		<input type="text" th:field="*{productCode}">
-		<br>
-		商品名
-		<input type="text" th:field="*{productName}">
-		<br>
-		単価
-		<input type="text" th:field="*{price}">
-		<br>
-		<button type="submit">登録</button>
-	</form>
-	
-	<a th:href="@{/products/list}">製品一覧へ戻る</a>
-	<a href="">管理TOPへ戻る</a>
-	
+
+    <!-- ヘッダー（共通） -->
+    <header>
+        <div class="version">Ver.1.0</div>
+
+        <h1 class="title">Food System Management</h1>
+
+        <div class="header-right">
+            <button type="button" onclick="location.href='/'">終了</button>
+        </div>
+    </header>
+
+    <!-- メイン -->
+    <main class="page">
+
+        <div class="page-header">
+            <h2>商品登録</h2>
+        </div>
+
+        <!-- 登録カード -->
+        <div class="table-card">
+
+            <form th:action="@{/products}"
+                  th:object="${product}"
+                  method="post"
+                  class="edit-form">
+
+                <div class="form-group">
+                    <label>商品コード</label>
+                    <input type="text"
+                           th:field="*{productCode}"
+                           placeholder="例：P001">
+                </div>
+
+                <div class="form-group">
+                    <label>商品名</label>
+                    <input type="text"
+                           th:field="*{productName}"
+                           placeholder="例：チョコレートケーキ">
+                </div>
+
+                <div class="form-group">
+                    <label>単価</label>
+                    <input type="number"
+                           th:field="*{price}"
+                           placeholder="例：1200">
+                </div>
+
+                <div class="form-group">
+                    <label>賞味期限</label>
+                    <input type="date"
+                           th:field="*{expirationDate}">
+                </div>
+
+                <!-- ボタンエリア -->
+                <div class="form-actions">
+
+                    <div style="display:flex; gap:10px; flex-wrap:wrap;">
+                        <a th:href="@{/products/list}" class="back-btn">
+                            ← 商品一覧へ戻る
+                        </a>
+
+                        <a th:href="@{/top}" class="back-btn">
+                            管理TOPへ戻る
+                        </a>
+                    </div>
+
+                    <button type="submit" class="add-btn">
+                        登録する
+                    </button>
+
+                </div>
+
+            </form>
+
+        </div>
+
+    </main>
+
 </body>
 </html>

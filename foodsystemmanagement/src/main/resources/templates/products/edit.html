@@ -1,34 +1,71 @@
 <!DOCTYPE html>
-<html xlmns:th="http://www.thymleaf.org">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
-<meta charset="UTF-8">
-<title>商品編集</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" href="https://unpkg.com/ress/dist/ress.min.css">
+     <link rel="stylesheet" th:href="@{/css/products.css}">
+
+    <title>商品編集 - Food System Management</title>
 </head>
+
 <body>
-	<form th:action="@{/products/update}"
-	      th:object="${product}"
-	      method="post">
 
-	    <input type="hidden" th:field="*{id}">
+    <!-- ヘッダー（一覧と共通） -->
+    <header>
+        <div class="version">Ver.1.0</div>
 
-	    商品コード
-	    <input type="text" th:field="*{productCode}">
-	    <br>
+        <h1 class="title">Food System Management</h1>
 
-	    商品名
-	    <input type="text" th:field="*{productName}">
-	    <br>
+        <div class="header-right">
+            <button type="button" onclick="location.href='/'">終了</button>
+        </div>
+    </header>
 
-	    価格
-	    <input type="number" th:field="*{price}">
-	    <br>
+    <!-- メイン -->
+    <main class="page">
 
-	    賞味期限
-	    <input type="date" th:field="*{expirationDate}">
-	    <br>
+        <div class="page-header">
+            <h2 th:text="${product.productName} + ' の編集'">
+                商品編集
+            </h2>
+        </div>
 
-	    <button>更新</button>
+        <!-- 編集カード -->
+        <div class="table-card">
 
-	</form>
+            <form th:action="@{/products/update}"
+                  th:object="${product}"
+                  method="post"
+                  class="edit-form">
+
+                <input type="hidden" th:field="*{id}">
+
+                <div class="form-group">
+                    <label>商品コード</label>
+                    <input type="text" th:field="*{productCode}">
+                    <label>商品名</label>
+                    <input type="text" th:field="*{productName}">
+                    <label>価格</label>
+                    <input type="number" th:field="*{price}">
+                    <label>賞味期限</label>
+                    <input type="date" th:field="*{expirationDate}">
+                </div>
+                    <a th:href="@{/products/list}" class="back-btn">
+                        ← 一覧へ戻る
+                    </a>
+
+                    <button type="submit" class="add-btn">
+                        更新する
+                    </button>
+                </div>
+
+            </form>
+
+        </div>
+
+    </main>
+
 </body>
 </html>
