@@ -41,6 +41,10 @@ public class Material {
 	@Column(nullable=false)
 	private String unit;
 	
+	@Column(nullable=false)
+	@Positive(message = "0より大きい数字を入力してください")
+	private int stockQuantity;
+	
 	public Long getId() {
 		return id;
 	}
@@ -77,4 +81,12 @@ public class Material {
 	public void setUnit(String unit) {
 		this.unit=unit;	
 	}
+	
+	public int getStockQuantity() {
+		return stockQuantity;
 	}
+	
+	public void setStockQuantity(int stockQuantity){
+		this.stockQuantity = stockQuantity;
+	}
+}

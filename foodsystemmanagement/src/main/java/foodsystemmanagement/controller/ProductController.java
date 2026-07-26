@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import foodsystemmanagement.entity.Product;
 import foodsystemmanagement.service.ProductService;
@@ -39,7 +40,7 @@ public class ProductController {
 		return "products/register";
 	}
 	@PostMapping("/products")
-		public String create(@Valid @ModelAttribute("product") Product product,BindingResult result) {
+		public String create(@Valid @ModelAttribute("product") Product product,BindingResult result,RedirectAttributes redirectAttributes) {
 		
 		if(productService.existsProductCode(product.getProductCode())) {
 			result.rejectValue("productCode","duplicate","この商品コードは既に登録されています。");
@@ -50,11 +51,12 @@ public class ProductController {
 		}
 		
 		productService.save(product);
-			return"redirect:/products/registrationcomplete";
+		redirectAttributes.addFlashAttribute("message", "商品を登録しました。");
+			return"redirect:/products/list";
 		}
 	@GetMapping("/products/registrationcomplete")
 		public String registrationComplete() {
-		return "products/registrationcomplete";
+		return "products/list";
 	}
 		
 	//商品編集
@@ -66,15 +68,17 @@ public class ProductController {
 		}
 	
 	@PostMapping("/products/update")
-		public String update(Product product) {
+		public String update(Product product,RedirectAttributes redirectAttributes) {
 			productService.update(product);
+			redirectAttributes.addFlashAttribute("message", "商品を修正しました。");
 			return "redirect:/products/list";
 		}
 	
 	//商品削除
 	@PostMapping("/products/delete/{id}")
-		public String delete(@PathVariable Long id) {
+		public String delete(@PathVariable Long id,RedirectAttributes redirectAttributes) {
 		productService.delete(id);
+		redirectAttributes.addFlashAttribute("message", "商品を削除しました。");
 		return "redirect:/products/list";
 	}
 	

@@ -11,7 +11,7 @@ import foodsystemmanagement.repository.MaterialRepository;
 public class MaterialService {
 	private final MaterialRepository materialRepository;
 	
-	public MaterialService(MaterialRepository materialrepository) {
+	public MaterialService(MaterialRepository materialRepository) {
 		this.materialRepository=materialRepository;
 	}
 	
@@ -38,7 +38,7 @@ public class MaterialService {
 	public List<Material> search(String keyword){
 		System.out.println("検索文字："+keyword);
 		
-		List<Material>list = materialRepository.findByMaterialNameContaining)keyword);
+		List<Material>list = materialRepository.findByMaterialNameContaining(keyword);
 		System.out.println("件数："+list.size());
 		return list;
 	}

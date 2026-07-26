@@ -1,0 +1,303 @@
+@charset "UTF-8";
+
+body {
+    margin: 0;
+    font-family: "Yu Gothic", sans-serif;
+    background: #f6f6f6;
+    min-height: 100vh;
+    color: #333;
+}
+
+/* =========================
+   ヘッダー（TOP・ログイン共通）
+========================= */
+header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 15px 30px;
+    background-color: #ff8a1c;
+    position: relative;
+}
+
+.title {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    margin: 0;
+    font-size: 36px;
+    font-family: "Yu Gothic", sans-serif;
+    color: rgb(92, 74, 57);
+    font-weight: bold;
+}
+
+.version {
+    font-size: 18px;
+    color: #000;
+}
+
+.header-right {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.header-right button {
+    padding: 8px 20px;
+    font-size: 16px;
+    border: none;
+    border-radius: 6px;
+    background-color: rgb(250, 227, 193);
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.header-right button:hover {
+    background-color: #ffce9c;
+}
+
+/* =========================
+   ページ全体
+========================= */
+.page {
+    max-width: 1200px;
+    margin: 40px auto;
+    padding: 0 20px;
+}
+
+/* タイトル行 */
+.page-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+}
+
+.page-header h2 {
+    margin: 0;
+    font-size: 32px;
+    color: #8B5A3C;
+}
+
+/* 新規登録ボタン */
+.add-btn {
+    display: inline-block;
+    padding: 10px 20px;
+    background: #cd9536;
+    color: white;
+    text-decoration: none;
+    border-radius: 8px;
+    font-weight: bold;
+    transition: background 0.2s;
+}
+
+.add-btn:hover {
+    background: #b68028;
+}
+
+/* =========================
+   テーブルカード
+========================= */
+.table-card {
+    background: white;
+    border-radius: 16px;
+    padding: 25px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+    overflow-x: auto;
+}
+
+/* テーブル */
+.product-table {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 800px;
+}
+
+.product-table thead {
+    background: #fff3e3;
+}
+
+.product-table th {
+    padding: 14px 12px;
+    text-align: left;
+    color: #8B5A3C;
+    font-weight: bold;
+    border-bottom: 2px solid #e2d5c5;
+}
+
+.product-table td {
+    padding: 14px 12px;
+    border-bottom: 1px solid #eee;
+}
+
+.product-table tbody tr:hover {
+    background: #faf7f2;
+}
+
+/* 編集ボタン */
+.edit-btn {
+    display: inline-block;
+    padding: 6px 14px;
+    background: #ff8a1c;
+    color: white;
+    text-decoration: none;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: bold;
+    transition: background 0.2s;
+}
+
+.edit-btn:hover {
+    background: #e57400;
+}
+
+/* =========================
+   下部ボタン
+========================= */
+.bottom-actions {
+    margin-top: 25px;
+    text-align: left;
+}
+
+.back-btn {
+    display: inline-block;
+    padding: 10px 20px;
+    background: #e0e0e0;
+    color: #333;
+    text-decoration: none;
+    border-radius: 8px;
+    font-weight: bold;
+    transition: background 0.2s;
+}
+
+.back-btn:hover {
+    background: #cfcfcf;
+}
+
+
+
+.edit-form {
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.form-group {
+    margin-bottom: 24px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+    color: #444;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 12px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    box-sizing: border-box;
+    transition: border-color 0.2s;
+}
+
+.form-group input:focus {
+    outline: none;
+    border-color: #cd9536;
+}
+
+/* ボタンエリア */
+.form-actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 35px;
+    gap: 15px;
+}
+
+.form-actions .add-btn,
+.form-actions .back-btn {
+    min-width: 140px;
+    text-align: center;
+}
+
+
+.success-message{
+    margin:15px 0;
+    padding:12px;
+    background:#e8f5e9;
+    color:#2e7d32;
+    border:1px solid #81c784;
+    border-radius:5px;
+    text-align:center;
+    font-weight:bold;
+}
+
+
+/* モバイル */
+@media screen and (max-width: 768px) {
+    .form-actions {
+        flex-direction: column-reverse;
+        align-items: stretch;
+    }
+
+    .form-actions .add-btn,
+    .form-actions .back-btn {
+        width: 100%;
+    }
+}
+
+
+
+
+/* =========================
+   レスポンシブ
+========================= */
+@media screen and (max-width: 768px) {
+
+    header {
+        padding: 12px 15px;
+    }
+
+    .title {
+        font-size: 22px;
+    }
+
+    .version {
+        font-size: 14px;
+    }
+
+    .header-right button {
+        padding: 6px 12px;
+        font-size: 14px;
+    }
+
+    .page {
+        margin: 20px auto;
+        padding: 0 15px;
+    }
+
+    .page-header {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 15px;
+    }
+
+    .page-header h2 {
+        font-size: 26px;
+        text-align: center;
+    }
+
+    .add-btn {
+        text-align: center;
+    }
+
+    .table-card {
+        padding: 15px;
+    }
+
+    .bottom-actions {
+        text-align: center;
+    }
+}
