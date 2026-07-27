@@ -9,5 +9,4 @@ public class FoodsystemmanagementApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(FoodsystemmanagementApplication.class, args);
 	}
-
 }

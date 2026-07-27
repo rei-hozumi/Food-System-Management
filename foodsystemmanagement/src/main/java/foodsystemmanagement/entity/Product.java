@@ -9,6 +9,9 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
 
 @Entity
 @Table(name="products")
@@ -17,15 +20,20 @@ public class Product {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
+	@NotBlank(message = "商品コードを入力してください")
 	@Column(name="product_code",nullable=false,length=30)
 	private String productCode;
 	
+	@NotBlank(message = "商品名を入力してください")
 	@Column(name="product_name",nullable=false,length=50)
 	private String productName;
 	
+	@NotNull(message = "価格を入力してください")
+	@Positive(message = "０より大きい値を入力してください")
 	@Column(nullable=false,precision=5,scale=2)
 	private BigDecimal price;
 	
+	@NotNull(message = "賞味期限を入力してください")
 	@Column(name="expiration_date")
 	private LocalDate expirationDate;
 	

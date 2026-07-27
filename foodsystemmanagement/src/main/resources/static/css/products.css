@@ -222,6 +222,19 @@ header {
     text-align: center;
 }
 
+
+
+.success-message{
+    margin:15px 0;
+    padding:12px;
+    background:#e8f5e9;
+    color:#2e7d32;
+    border:1px solid #81c784;
+    border-radius:5px;
+    text-align:center;
+    font-weight:bold;
+}
+
 /* モバイル */
 @media screen and (max-width: 768px) {
     .form-actions {

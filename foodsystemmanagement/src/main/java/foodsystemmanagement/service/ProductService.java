@@ -30,4 +30,20 @@ public class ProductService {
 	public void update(Product product) {
 		productRepository.save(product);
 	}
+	//削除
+	public void delete(Long id) {
+		productRepository.deleteById(id);
+	}
+	//検索
+	public List<Product> search(String keyword){
+		System.out.println("検索文字："+keyword);
+		
+		List<Product>list=productRepository.findByProductNameContaining(keyword);
+		System.out.println("件数："+list.size());
+		return list;
+	}
+	//重複チェック
+	public boolean existsProductCode(String productCode) {
+		return productRepository.findByProductCode(productCode) != null;
+	}
 }

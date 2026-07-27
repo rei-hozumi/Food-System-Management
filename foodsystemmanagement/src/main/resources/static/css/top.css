@@ -1,3 +1,5 @@
+@charset "UTF-8";
+
 header{
     display: flex;
     align-items: center;
@@ -107,6 +109,3 @@ section button:hover,
 
     background-color: #cf8455;
 }
-
-
-
