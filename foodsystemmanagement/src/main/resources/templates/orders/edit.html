@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>受注編集</title>
+
+<link rel="stylesheet" th:href="@{/css/style.css}">
+<link rel="stylesheet" th:href="@{/css/product.css}">
+</head>
+
+<body>
+
+<h1>受注編集</h1>
+
+<form th:action="@{/orders/update}" th:object="${order}" method="post">
+
+    <input type="hidden" th:field="*{id}">
+
+    <p>
+        商品
+
+        <select th:field="*{product.id}">
+
+            <option
+                th:each="product : ${products}"
+                th:value="${product.id}"
+                th:text="${product.name}">
+            </option>
+
+        </select>
+
+    </p>
+
+    <p>
+        数量
+        <input type="number" th:field="*{quantity}">
+    </p>
+
+    <p>
+        受注日
+        <input type="date" th:field="*{orderDate}">
+    </p>
+
+    <button type="submit">更新</button>
+
+    <a th:href="@{/orders}">
+        <button type="button">戻る</button>
+    </a>
+
+</form>
+
+</body>
+</html>

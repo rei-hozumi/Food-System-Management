@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>受注一覧</title>
+
+<link rel="stylesheet" th:href="@{/css/style.css}">
+<link rel="stylesheet" th:href="@{/css/product.css}">
+</head>
+
+<body>
+
+<header>
+    <h1>受注一覧</h1>
+
+    <div class="header-buttons">
+        <a th:href="@{/orders/register}" class="btn">新規登録</a>
+        <a th:href="@{/}" class="btn">TOPへ戻る</a>
+    </div>
+</header>
+
+<main>
+
+<table>
+
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>商品名</th>
+            <th>数量</th>
+            <th>受注日</th>
+            <th>編集</th>
+            <th>削除</th>
+        </tr>
+    </thead>
+
+    <tbody>
+
+        <tr th:each="order : ${orders}">
+            <td th:text="${order.id}"></td>
+
+            <td th:text="${order.product.name}"></td>
+
+            <td th:text="${order.quantity}"></td>
+
+            <td th:text="${order.orderDate}"></td>
+
+            <td>
+                <a th:href="@{/orders/edit/{id}(id=${order.id})}" class="btn">編集</a>
+            </td>
+
+            <td>
+                <form th:action="@{/orders/delete/{id}(id=${order.id})}" method="post">
+
+                    <button type="submit"
+                        onclick="return confirm('削除しますか？')">
+                        削除
+                    </button>
+
+                </form>
+            </td>
+
+        </tr>
+
+    </tbody>
+
+</table>
+
+</main>
+
+</body>
+</html>

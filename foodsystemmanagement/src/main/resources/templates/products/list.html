@@ -5,11 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <link rel="stylesheet" href="https://unpkg.com/ress/dist/ress.min.css">
-<<<<<<< HEAD
-     <link rel="stylesheet" th:href="@{css/products.css}">
-=======
      <link rel="stylesheet" th:href="@{/css/products.css}">
->>>>>>> refs/heads/master
 
     <title>製品管理一覧 - Food System Management</title>
 </head>
@@ -32,7 +28,6 @@
 
         <div class="page-header">
             <h2>製品管理一覧</h2>
-<<<<<<< HEAD
 
             <a th:href="@{/products/register}" class="add-btn">
                 ＋ 新規登録
@@ -66,8 +61,6 @@
                                 編集
                             </a>
                         </td>
-=======
-			
 			<div th:if="${message}" class="success-message">
 			    <p th:text="${message}"></p>
 			</div>
@@ -117,7 +110,6 @@
 
 							</form>
 						</td>
->>>>>>> refs/heads/master
                     </tr>
                 </tbody>
             </table>

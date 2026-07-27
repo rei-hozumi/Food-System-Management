@@ -46,4 +46,5 @@ public class ProductService {
 	public boolean existsProductCode(String productCode) {
 		return productRepository.findByProductCode(productCode) != null;
 	}
+
 }

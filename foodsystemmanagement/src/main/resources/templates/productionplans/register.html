@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<link rel="stylesheet"
+      href="https://unpkg.com/ress/dist/ress.min.css">
+
+<link rel="stylesheet"
+      th:href="@{/css/products.css}">
+
+<title>製造計画登録</title>
+
+</head>
+
+<body>
+
+<header>
+
+    <div class="version">Ver.1.0</div>
+
+    <h1 class="title">Food System Management</h1>
+
+    <div class="header-right">
+        <button type="button"
+                onclick="location.href='/'">
+            終了
+        </button>
+    </div>
+
+</header>
+
+<main class="page">
+
+    <div class="page-header">
+        <h2>製造計画登録</h2>
+    </div>
+
+    <div class="table-card">
+
+        <form
+            th:action="@{/productionPlans}"
+            th:object="${productionPlan}"
+            method="post"
+            class="edit-form">
+
+            <div class="form-group">
+
+                <label>注文ID</label>
+
+                <input
+                    type="number"
+                    name="orderId">
+
+            </div>
+
+            <div class="form-group">
+
+                <label>商品ID</label>
+
+                <input
+                    type="number"
+                    name="productId">
+
+            </div>
+
+            <div class="form-group">
+
+                <label>製造数量</label>
+
+                <input
+                    type="number"
+                    th:field="*{plannedQuantity}">
+
+                <div class="error"
+                     th:errors="*{plannedQuantity}">
+                </div>
+
+            </div>
+
+            <div class="form-group">
+
+                <label>担当者ID</label>
+
+                <input
+                    type="number"
+                    name="assignedUserId">
+
+            </div>
+
+            <div class="form-group">
+
+                <label>製造ステータス</label>
+
+                <input
+                    type="text"
+                    th:field="*{status}">
+
+                <div class="error"
+                     th:errors="*{status}">
+                </div>
+
+            </div>
+
+            <div class="form-group">
+
+                <label>製造日</label>
+
+                <input
+                    type="date"
+                    th:field="*{productionDate}">
+
+                <div class="error"
+                     th:errors="*{productionDate}">
+                </div>
+
+            </div>
+
+            <div class="form-actions">
+
+                <a
+                    th:href="@{/productionPlans/list}"
+                    class="back-btn">
+
+                    戻る
+
+                </a>
+
+                <button
+                    type="submit"
+                    class="add-btn">
+
+                    登録
+
+                </button>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</main>
+
+</body>
+</html>
