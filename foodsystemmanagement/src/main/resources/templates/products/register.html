@@ -5,7 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <link rel="stylesheet" href="https://unpkg.com/ress/dist/ress.min.css">
+<<<<<<< HEAD
+     <link rel="stylesheet" th:href="@{css/products.css}">
+=======
      <link rel="stylesheet" th:href="@{/css/products.css}">
+>>>>>>> refs/heads/master
 
     <title>商品登録 - Food System Management</title>
 </head>
@@ -69,11 +73,19 @@
                 <div class="form-actions">
 
                     <div style="display:flex; gap:10px; flex-wrap:wrap;">
+<<<<<<< HEAD
+                        <a th:href="@{/products}" class="back-btn">
+                            ← 製品一覧へ戻る
+                        </a>
+
+                        <a th:href="@{/}" class="back-btn">
+=======
                         <a th:href="@{/products/list}" class="back-btn">
                             ← 商品一覧へ戻る
                         </a>
 
                         <a th:href="@{/top}" class="back-btn">
+>>>>>>> refs/heads/master
                             管理TOPへ戻る
                         </a>
                     </div>

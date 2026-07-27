@@ -2,6 +2,7 @@ package foodsystemmanagement.controller;
 
 import java.util.List;
 
+import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 
 import org.springframework.stereotype.Controller;
@@ -24,6 +25,16 @@ public class MaterialController {
 	public MaterialController(MaterialService materialService) {
 		this.materialService=materialService;
 		
+	}
+	
+	//ログイン確認
+	@GetMapping
+	public String list(HttpSession session,Model model) {
+		if(session.getAttribute("loginId")==null) {
+			return "redirect:/login";
+		}
+		model.addAttribute("materials",materialService.findAll());
+		return "prooducts/list";
 	}
 	
 	//一覧

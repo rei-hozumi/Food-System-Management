@@ -223,6 +223,7 @@ header {
 }
 
 
+
 .success-message{
     margin:15px 0;
     padding:12px;
@@ -233,7 +234,6 @@ header {
     text-align:center;
     font-weight:bold;
 }
-
 
 /* モバイル */
 @media screen and (max-width: 768px) {

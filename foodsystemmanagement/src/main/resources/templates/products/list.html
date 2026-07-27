@@ -28,7 +28,39 @@
 
         <div class="page-header">
             <h2>製品管理一覧</h2>
-			
+
+            <a th:href="@{/products/register}" class="add-btn">
+                ＋ 新規登録
+            </a>
+        </div>
+
+        <div class="table-card">
+
+            <table class="product-table">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>商品コード</th>
+                        <th>商品名</th>
+                        <th>単価</th>
+                        <th>賞味期限</th>
+                        <th>操作</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <tr th:each="product : ${productList}">
+                        <td th:text="${product.id}"></td>
+                        <td th:text="${product.productCode}"></td>
+                        <td th:text="${product.productName}"></td>
+                        <td th:text="${#numbers.formatInteger(product.price, 1, 'COMMA')} + ' 円'"></td>
+                        <td th:text="${product.expirationDate}"></td>
+                        <td>
+                            <a th:href="@{/products/edit/{id}(id=${product.id})}"
+                               class="edit-btn">
+                                編集
+                            </a>
+                        </td>
 			<div th:if="${message}" class="success-message">
 			    <p th:text="${message}"></p>
 			</div>
