@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymleaf.org">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -13,39 +13,33 @@
         <link href="https://fonts.googleapis.com/css2?family=Philosopher&display=swap" rel="stylesheet">
         
     <!-- オリジナルCSS -->
-        <link rel="stylesheet" href="css/login.css">
+		<link rel="stylesheet" th:href="@{/css/style.css}">
+		<link rel="stylesheet" th:href="@{/css/login.css}">
 
-<link rel="stylesheet" href="css/style.css">
 <title>Food System Management - ログイン</title>
 </head>
 
-<header>
-    <div class="version">Ver.1.0</div>
-
-    <h1 class="title">Food System Management</h1>
-    <br>
-	<div class="header-right">
-			<button>終了</button>
-	</div>
-</header>
-
 <body>
 
+<div class="form-box">
+
+    <h1 class="title">Food System Management</h1>
     <h2>ログイン</h2>
 
-    <form th:action="@{/login}" method="post">
-        <div class="form-group">
-            <label>社員番号：</label>
-            <input type="text" name="employeeId">
-            <label>パスワード：</label>
-            <input type="password" name="password">
-        </div>
+	<form th:action="@{/login}" method="post">
+	    <div class="form-group">
+	        <label>社員番号：</label>
+	        <input type="text" name="loginId">
+	
+	        <label>パスワード：</label>
+	        <input type="password" name="password">
+	    </div>
+	
+	    <button type="submit" class="login-btn">ログイン</button>
+	</form>
 
-        <button type="submit" class="login-btn">ログイン</button>
 
-    </form>
-
-
+</div>
 
 </body>
 </html>

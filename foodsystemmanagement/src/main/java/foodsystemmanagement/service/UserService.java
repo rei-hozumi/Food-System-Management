@@ -16,8 +16,9 @@ public class UserService {
         this.userRepository = userRepository;
     }
     //ログイン
-    public User login(String loginId,String password,String userName) {
-    	User user = repository.findByLoginId(loginId);
+    public User login(String loginId,String password) {
+    	//ログイン情報が見つかった→User、見つからない→NULL
+    	User user = userRepository.findByLoginId(loginId).orElse(null);
     	if(user != null && user.getPassword().equals(password)) {
     		return user;
     	}

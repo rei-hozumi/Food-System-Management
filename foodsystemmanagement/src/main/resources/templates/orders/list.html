@@ -4,69 +4,92 @@
 <meta charset="UTF-8">
 <title>受注一覧</title>
 
-<link rel="stylesheet" th:href="@{/css/style.css}">
-<link rel="stylesheet" th:href="@{/css/product.css}">
+<link rel="stylesheet" th:href="@{/css/products.css}">
 </head>
 
 <body>
 
 <header>
-    <h1>受注一覧</h1>
+    <div class="version">Ver.1.0</div>
 
-    <div class="header-buttons">
-        <a th:href="@{/orders/register}" class="btn">新規登録</a>
-        <a th:href="@{/}" class="btn">TOPへ戻る</a>
+    <h1 class="title">Food System Management</h1>
+
+    <div class="header-right">
+        <button type="button" onclick="location.href='/'">
+            終了
+        </button>
     </div>
 </header>
 
-<main>
+    <main class="page">
 
-<table>
+        <div class="page-header">
+            <h2>受注一覧</h2>
+            
+			<div th:if="${message}" class="success-message">
+			    <p th:text="${message}"></p>
+			</div>
 
-    <thead>
-        <tr>
-            <th>ID</th>
-            <th>商品名</th>
-            <th>数量</th>
-            <th>受注日</th>
-            <th>編集</th>
-            <th>削除</th>
-        </tr>
-    </thead>
+            <a th:href="@{/orders/register}" class="add-btn">
+                ＋ 新規登録
+            </a>
+        </div>
 
-    <tbody>
+        <div class="table-card">
 
-        <tr th:each="order : ${orders}">
-            <td th:text="${order.id}"></td>
+            <table class="product-table">
+                <thead>
+                    <tr>
+                        <th>受注番号</th>
+                        <th>受注日</th>
+                        <th>商品名</th>
+                        <th>受注数量</th>
+                        <th>納期</th>
+                        <th>受注ステータス</th>
+                        <th> </th>
+						<th> </th>
+                    </tr>
+                </thead>
 
-            <td th:text="${order.product.name}"></td>
+                <tbody>
+                    <tr th:each="order : ${orderList}">
+                        <td th:text="${order.orderNumber}"></td>
+                        <td th:text="${order.orderDate}"></td>
+                        <td th:text="${order.product.productName}"></td>
+                        <td th:text="${order.orderQuantity}"></td>
+                        <td th:text="${order.dueDate}"></td>
+                        <td th:text="${order.status}"></td>
+                        <td>
+                            <a th:href="@{/orders/edit/{id}(id=${order.id})}"
+                               class="edit-btn">
+                                編集
+                            </a>
+                        </td>
+						<td>
+							<form th:action="@{/orders/delete/{id}(id=${order.id})}"
+							      method="post"
+							      th:attr="data-name=${order.orderNumber}"
+							      onsubmit="return confirm('「' + this.dataset.name + '」を削除しますか？');">
 
-            <td th:text="${order.quantity}"></td>
+							    <button type="submit" class="edit-btn">
+							        削除
+							    </button>
 
-            <td th:text="${order.orderDate}"></td>
+							</form>
+						</td>
+                    </tr>
+                </tbody>
+            </table>
 
-            <td>
-                <a th:href="@{/orders/edit/{id}(id=${order.id})}" class="btn">編集</a>
-            </td>
+        </div>
 
-            <td>
-                <form th:action="@{/orders/delete/{id}(id=${order.id})}" method="post">
+        <div class="bottom-actions">
+            <a th:href="@{/top}" class="back-btn">
+                ← 管理画面へ戻る
+            </a>
+        </div>
 
-                    <button type="submit"
-                        onclick="return confirm('削除しますか？')">
-                        削除
-                    </button>
-
-                </form>
-            </td>
-
-        </tr>
-
-    </tbody>
-
-</table>
-
-</main>
+    </main>
 
 </body>
 </html>

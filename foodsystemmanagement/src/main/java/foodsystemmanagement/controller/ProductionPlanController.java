@@ -2,7 +2,6 @@ package foodsystemmanagement.controller;
 
 import java.util.List;
 
-import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 
 import org.springframework.stereotype.Controller;
@@ -39,17 +38,7 @@ public class ProductionPlanController {
 	    this.productService = productService;
 	    this.userService = userService;
 	}
-	
-	//ログイン確認
-	@GetMapping
-	public String list(HttpSession session,Model model) {
-		if(session.getAttribute("loginId")==null) {
-			return "redirect:/login";
-		}
-		model.addAttribute("productionPlans",productionPlanService.findAll());
-		return "prooducts/list";
-	}
-	
+
 	//製造計画一覧
 	@GetMapping("/productionPlans/list")
 		public String list(Model model) {

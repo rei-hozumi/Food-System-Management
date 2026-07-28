@@ -6,6 +6,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotBlank;
 
 @Entity
 @Table(name="users")
@@ -14,16 +15,20 @@ public class User {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
-	@Column(name="login_id",unique=true,nullable=false,length=10)
+	@NotBlank(message = "ログインIDを入力してください")
+	@Column(name = "login_id", unique = true, nullable = false, length = 10)
 	private String loginId;
-	
-	@Column(nullable=false,length=255)
+
+	@NotBlank(message = "パスワードを入力してください")
+	@Column(nullable = false, length = 255)
 	private String password;
-	
-	@Column(name="user_name",nullable=false,length=50)
+
+	@NotBlank(message = "ユーザー名を入力してください")
+	@Column(name = "user_name", nullable = false, length = 50)
 	private String userName;
-	
-	@Column(nullable=false,length=50)
+
+	@NotBlank(message = "権限を選択してください")
+	@Column(nullable = false, length = 50)
 	private String role;
 	
 	public User() {}

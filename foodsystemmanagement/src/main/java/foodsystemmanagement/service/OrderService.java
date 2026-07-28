@@ -21,11 +21,25 @@ public class OrderService {
     public List<Order> findAll() {
         return orderRepository.findAll();
     }
-
+    
+    
     // 注文登録
     public void save(Order order) {
+    	order.setOrderNumber(createOrderNumber());
         orderRepository.save(order);
     }
+
+    //受注番号自動生成
+    private String createOrderNumber() {
+    	Order latestOrder = orderRepository.findTopByOrderByIdDesc();
+    	int number = 1;
+    	if(latestOrder != null) {
+    		String lastNo = latestOrder.getOrderNumber();
+    		number = Integer.parseInt(lastNo.replace("ORD", ""))+1;
+    	}
+    	return String.format("ORD%04d",number);
+    }
+
 
     // 注文取得（ID検索）
     public Order findById(Long id) {
