@@ -5,11 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <link rel="stylesheet" href="https://unpkg.com/ress/dist/ress.min.css">
-<<<<<<< HEAD
-     <link rel="stylesheet" th:href="@{css/products.css}">
-=======
      <link rel="stylesheet" th:href="@{/css/products.css}">
->>>>>>> refs/heads/master
 
     <title>商品編集 - Food System Management</title>
 </head>
@@ -31,9 +27,7 @@
     <main class="page">
 
         <div class="page-header">
-            <h2 th:text="${product.productName} + ' の編集'">
-                商品編集
-            </h2>
+            <h2 th:text="${product.productName} + ' の編集'"></h2>
         </div>
 
         <!-- 編集カード -->
@@ -49,7 +43,6 @@
                 <div class="form-group">
                     <label>商品コード</label>
                     <input type="text" th:field="*{productCode}">
-<<<<<<< HEAD
                 </div>
 
                 <div class="form-group">
@@ -66,30 +59,18 @@
                     <label>賞味期限</label>
                     <input type="date" th:field="*{expirationDate}">
                 </div>
-
-                <div class="form-actions">
-                    <a th:href="@{/products}" class="back-btn">
-=======
-                    <label>商品名</label>
-                    <input type="text" th:field="*{productName}">
-                    <label>価格</label>
-                    <input type="number" th:field="*{price}">
-                    <label>賞味期限</label>
-                    <input type="date" th:field="*{expirationDate}">
-                </div>
+                
+           
                     <a th:href="@{/products/list}" class="back-btn">
->>>>>>> refs/heads/master
-                        ← 一覧へ戻る
+
+                        ← 商品一覧へ戻る
                     </a>
 
                     <button type="submit" class="add-btn">
-                        更新する
+                        更新
                     </button>
+                    </form>
                 </div>
-
-            </form>
-
-        </div>
 
     </main>
 

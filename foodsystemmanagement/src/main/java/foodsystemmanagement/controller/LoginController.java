@@ -25,16 +25,15 @@ public class LoginController {
 	}
 	@PostMapping("/login")
 	public String login(@RequestParam String loginId,
-						@RequestParam String userName,
 						@RequestParam String password,
 						HttpSession session,
 						Model model) {
-		User user = userService.login(loginId,userName,password);
+		User user = userService.login(loginId,password);
         if(user != null){
             session.setAttribute("loginUser", user);
-            return "redirect:/";
+            return "redirect:/top";
         }
-        model.addAttribute("error","ユーザー名またはパスワードが違います");
+        model.addAttribute("error","ログインIDまたはパスワードが違います");
         return "login";
 	}
 	@GetMapping("/logout")

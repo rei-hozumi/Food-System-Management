@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- リセットCSS -->
+        <link rel="stylesheet" href="https://unpkg.com/ress/dist/ress.min.css">
+
+    <!-- Googleフォント -->
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Philosopher&display=swap" rel="stylesheet">
+        
+    <!-- オリジナルCSS -->
+		<link rel="stylesheet" th:href="@{/css/login.css}">
+		
+<title>新規登録 - Food System Management</title>
+</head>
+
+<body>
+
+<div class="form-box">
+    <h1 class="title">Food System Management</h1>
+    <h2>新規登録</h2>
+
+    <form th:action="@{/users/register}" th:object="${user}" method="post">
+        <div class="form-group">
+            <label>社員番号：</label>
+            <input type="text" th:field="*{loginId}">
+            <label>ユーザー名：</label>
+            <input type="text" th:field="*{userName}">
+            <label>パスワード：</label>
+            <input type="password" th:field="*{password}">
+            <label>権限：</label>
+            <select th:field="*{role}">
+		    	<option value="ADMIN">管理者</option>
+		    	<option value="PLANNER">計画担当</option>
+		    	<option value="WORKER">作業者</option>
+			</select>
+        </div>
+
+        <button type="submit" class="login-btn">登録</button>
+
+    </form>
+</div>
+
+
+</body>
+</html>

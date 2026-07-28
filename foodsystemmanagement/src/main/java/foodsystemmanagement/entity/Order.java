@@ -31,10 +31,6 @@ public class Order {
 	private String status;
 	
 	@ManyToOne
-	@JoinColumn(name="created_by",nullable=false)
-	private User createdBy;
-	
-	@ManyToOne
 	@JoinColumn(name="product_id",nullable=false)
 	private Product product;
 	
@@ -79,14 +75,6 @@ public class Order {
 
 	public void setStatus(String status) {
 		this.status = status;
-	}
-
-	public User getCreatedBy() {
-		return createdBy;
-	}
-
-	public void setCreatedBy(User createdBy) {
-		this.createdBy = createdBy;
 	}
 
 	public Product getProduct() {

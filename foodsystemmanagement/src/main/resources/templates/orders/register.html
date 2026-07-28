@@ -1,50 +1,120 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head>
-<meta charset="UTF-8">
-<title>受注登録</title>
 
-<link rel="stylesheet" th:href="@{/css/style.css}">
-<link rel="stylesheet" th:href="@{/css/product.css}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" href="https://unpkg.com/ress/dist/ress.min.css">
+    <link rel="stylesheet" th:href="@{/css/products.css}">
+
+    <title>受注登録 - Food System Management</title>
 </head>
 
 <body>
 
-<h1>受注登録</h1>
+    <!-- ヘッダー（共通） -->
+    <header>
+        <div class="version">Ver.1.0</div>
 
-<form th:action="@{/orders}" th:object="${order}" method="post">
+        <h1 class="title">Food System Management</h1>
 
-    <p>
-        商品
-        <select th:field="*{product.id}">
-            <option value="">選択してください</option>
+        <div class="header-right">
+            <button type="button" onclick="location.href='/'">
+                終了
+            </button>
+        </div>
+    </header>
 
-            <option
-                th:each="product : ${products}"
-                th:value="${product.id}"
-                th:text="${product.name}">
-            </option>
 
-        </select>
-    </p>
+    <!-- メイン -->
+    <main class="page">
 
-    <p>
-        数量
-        <input type="number" th:field="*{quantity}">
-    </p>
+        <div class="page-header">
+            <h2>受注登録</h2>
+        </div>
 
-    <p>
-        受注日
-        <input type="date" th:field="*{orderDate}">
-    </p>
 
-    <button type="submit">登録</button>
+        <!-- 登録カード -->
+        <div class="table-card">
 
-    <a th:href="@{/orders}">
-        <button type="button">戻る</button>
-    </a>
+            <form th:action="@{/orders}"
+                  th:object="${order}"
+                  method="post"
+                  class="edit-form">
 
-</form>
+
+                <div class="form-group">
+
+                    <label>受注日</label>
+
+                    <input type="date"
+                           th:field="*{orderDate}">
+                </div>
+                <div class="form-group">
+                    <label>商品名</label>
+					<select th:field="*{product}">
+						<option th:each="product : ${products}"
+						        th:value="${product.id}"
+						        th:text="${product.productName}">
+						</option>
+					</select>
+                </div>
+                <div class="form-group">
+                    <label>数量</label>
+                    <input type="number"
+                           th:field="*{orderQuantity}"
+                           placeholder="例：10">
+                </div>
+
+                <div class="form-group">
+                    <label>納期</label>
+                    <input type="date"
+                           th:field="*{dueDate}">
+                </div>
+                <div class="form-group">
+                    <label>状態</label>
+                    <select th:field="*{status}">
+                        <option value="受付">受付</option>
+                        <option value="製造中">製造中</option>
+                        <option value="完了">完了</option>
+                    </select>
+                </div>
+
+
+
+                <!-- ボタンエリア -->
+                <div class="form-actions">
+
+
+                    <div style="display:flex; gap:10px; flex-wrap:wrap;">
+
+                        <a th:href="@{/orders/list}"
+                           class="back-btn">
+                            ← 受注一覧へ戻る
+                        </a>
+
+                    </div>
+
+
+                    <button type="submit"
+                            class="add-btn">
+                        登録
+                    </button>
+
+
+                </div>
+
+
+            </form>
+
+
+        </div>
+
+
+    </main>
+
 
 </body>
+
 </html>

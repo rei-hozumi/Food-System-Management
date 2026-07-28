@@ -2,7 +2,6 @@ package foodsystemmanagement.controller;
 
 import java.util.List;
 
-import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 
 import org.springframework.stereotype.Controller;
@@ -15,24 +14,21 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import foodsystemmanagement.entity.Order;
+import foodsystemmanagement.repository.OrderRepository;
+import foodsystemmanagement.repository.ProductRepository;
 import foodsystemmanagement.service.OrderService;
 
 @Controller
 public class OrderController {
     private final OrderService orderService;
-    public OrderController(OrderService orderService) {
+    private final OrderRepository orderRepository;
+    private final ProductRepository productRepository;
+    
+    public OrderController(OrderService orderService,OrderRepository orderRepository,ProductRepository productRepository) {
         this.orderService = orderService;
+        this.orderRepository = orderRepository;
+        this.productRepository = productRepository;
     }
-
-	//ログイン確認
-	@GetMapping
-	public String list(HttpSession session,Model model) {
-		if(session.getAttribute("loginId")==null) {
-			return "redirect:/login";
-		}
-		model.addAttribute("orders",orderService.findAll());
-		return "prooducts/list";
-	}
     
     // 受注一覧
     @GetMapping("/orders/list")
@@ -45,6 +41,10 @@ public class OrderController {
     @GetMapping("/orders/register")
     public String register(Model model) {
         model.addAttribute("order", new Order());
+        
+        //product一覧取得
+        model.addAttribute("products",productRepository.findAll());
+        
         return "orders/register";
     }
     // 登録
@@ -66,6 +66,8 @@ public class OrderController {
     public String edit(@PathVariable Long id, Model model) {
         Order order = orderService.findById(id);
         model.addAttribute("order", order);
+        //product一覧取得
+        model.addAttribute("products",productRepository.findAll());
         return "orders/edit";
     }
     // 更新

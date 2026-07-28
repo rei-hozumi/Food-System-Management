@@ -2,7 +2,6 @@ package foodsystemmanagement.controller;
 
 import java.util.List;
 
-import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 
 import org.springframework.stereotype.Controller;
@@ -24,16 +23,6 @@ public class ProductController {
 	
 	public ProductController(ProductService productService) {
 		this.productService=productService;
-	}
-	
-	//ログイン確認
-	@GetMapping
-	public String list(HttpSession session,Model model) {
-		if(session.getAttribute("loginId")==null) {
-			return "redirect:/login";
-		}
-		model.addAttribute("products",productService.findAll());
-		return "prooducts/list";
 	}
 	
 	//商品一覧
@@ -65,11 +54,6 @@ public class ProductController {
 		redirectAttributes.addFlashAttribute("message", "商品を登録しました。");
 			return"redirect:/products/list";
 		}
-	@GetMapping("/products/list")
-		public String registrationComplete() {
-		return "products/list";
-	}
-		
 	//商品編集
 	@GetMapping("/products/edit/{id}")
 		public String edit(@PathVariable Long id,Model model){
