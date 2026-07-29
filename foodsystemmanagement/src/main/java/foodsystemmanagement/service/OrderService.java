@@ -1,6 +1,8 @@
 package foodsystemmanagement.service;
 
 
+import java.time.DayOfWeek;
+import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
@@ -17,6 +19,37 @@ public class OrderService {
         this.orderRepository = orderRepository;
     }
 
+    //ダッシュボードの未完了受注数取得
+    public List<Order>findUnfinishedOrders(){
+    	return orderRepository.findByStatusNot("完了");
+    }
+    //売上取得
+    public int getTodaySales() {
+        LocalDate today = LocalDate.now();
+        List<Order> orders = orderRepository.findByOrderDate(today);
+        return calculateSales(orders);
+    }
+    public int getWeekSales(){
+        LocalDate start = LocalDate.now().with(DayOfWeek.MONDAY);
+        LocalDate end = start.plusDays(6);
+        return orderRepository.sumSalesBetween(start,end);
+    }
+    public int getMonthSales(){
+        LocalDate now = LocalDate.now();
+        LocalDate start = now.withDayOfMonth(1);
+        LocalDate end = now.withDayOfMonth(now.lengthOfMonth());
+        return orderRepository.sumSalesBetween(start,end);
+    }
+    private int calculateSales(List<Order>orders) {
+    	int total =0;
+    	for(Order o:orders) {
+    		int price = o.getProduct().getPrice().intValue();
+    		int quantity = o.getOrderQuantity();
+    		total += price*quantity;
+    	}
+    	return total;
+    }
+    
     // 注文一覧取得
     public List<Order> findAll() {
         return orderRepository.findAll();

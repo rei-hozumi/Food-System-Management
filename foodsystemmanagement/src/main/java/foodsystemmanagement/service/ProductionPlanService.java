@@ -1,5 +1,6 @@
 package foodsystemmanagement.service;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
@@ -13,6 +14,11 @@ public class ProductionPlanService {
 	
 	public ProductionPlanService(ProductionPlanRepository productionPlanRepository) {
 		this.productionPlanRepository = productionPlanRepository;
+	}
+	//製造計画数取得
+	public List<ProductionPlan>findTodayPlans(){
+		LocalDate today = LocalDate.now();
+		return productionPlanRepository.findByProductionDate(today);
 	}
 	
 	//製造計画一覧取得
