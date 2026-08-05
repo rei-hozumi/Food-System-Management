@@ -1,4 +1,4 @@
-/*package foodsystemmanagement.config;
+package foodsystemmanagement.config;
 
 
 import java.math.BigDecimal;
@@ -145,4 +145,4 @@ public class DataInitializer implements CommandLineRunner {
             
             System.out.println("初期データ登録完了");
     }
-}*/
+}
