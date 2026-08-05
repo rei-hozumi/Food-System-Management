@@ -1,96 +1,98 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <link rel="stylesheet" href="https://unpkg.com/ress/dist/ress.min.css">
-     <link rel="stylesheet" th:href="@{/css/products.css}">
+<link rel="stylesheet" href="https://unpkg.com/ress/dist/ress.min.css">
+<link rel="stylesheet" th:href="@{/css/products.css}">
+<link rel="stylesheet" th:href="@{/css/common.css}">
 
-    <title>商品一覧 - Food System Management</title>
+<title>商品一覧 - Food System Management</title>
 </head>
 
 <body>
 
-    <!-- ヘッダー -->
-    <header>
-        <div class="version">Ver.1.0</div>
+	<!-- ヘッダー -->
+	<header>
+		<div class="version">Ver.1.0</div>
 
-        <h1 class="title">Food System Management</h1>
+		<h1 class="title">Food System Management</h1>
 
-        <div class="header-right">
-            <button type="button" onclick="location.href='/'">終了</button>
-        </div>
-    </header>
+	<form th:action="@{/logout}" method="post">
+	    <div class="header-right">
+	        <button type="submit">ログアウト</button>
+	    </div>
+	</form>
+	</header>
 
-    <!-- メイン -->
-    <main class="page">
+	<!-- メイン -->
+	<main class="page">
 
-        <div class="page-header">
-            <h2>商品一覧</h2>
-            
+		<div class="page-header">
+			<h2>商品一覧</h2>
+
 			<div th:if="${message}" class="success-message">
-			    <p th:text="${message}"></p>
+				<p th:text="${message}"></p>
 			</div>
 
-            <a th:href="@{/products/register}" class="add-btn">
-                ＋ 新規登録
-            </a>
-        </div>
+			<a th:href="@{/products/register}" class="add-btn"> ＋ 新規登録 </a>
+		</div>
 
-        <div class="table-card">
+		<!-- 検索 -->
+		<form th:action="@{/products/search}" method="get">
+			<div class="form-group">
+				<label>商品名</label> <input type="text" name="keyword"
+					placeholder="商品名を入力" th:value="${keyword}">
+			</div>
+			<div class="form-actions">
+				<button type="submit" class="add-btn">検索</button>
+			</div>
+		</form>
 
-            <table class="product-table">
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>商品コード</th>
-                        <th>商品名</th>
-                        <th>単価</th>
-                        <th>賞味期限</th>
-                        <th> </th>
-						<th> </th>
-                    </tr>
-                </thead>
+		<div class="table-card">
 
-                <tbody>
-                    <tr th:each="product : ${productList}">
-                        <td th:text="${product.id}"></td>
-                        <td th:text="${product.productCode}"></td>
-                        <td th:text="${product.productName}"></td>
-                        <td th:text="${#numbers.formatInteger(product.price, 1, 'COMMA')} + ' 円'"></td>
-                        <td th:text="${product.expirationDate}"></td>
-                        <td>
-                            <a th:href="@{/products/edit/{id}(id=${product.id})}"
-                               class="edit-btn">
-                                編集
-                            </a>
-                        </td>
+			<table class="product-table">
+				<thead>
+					<tr>
+						<th>商品番号</th>
+						<th>商品名</th>
+						<th>単価</th>
+						<th>賞味期限</th>
+						<th></th>
+						<th></th>
+					</tr>
+				</thead>
+
+				<tbody>
+					<tr th:each="product : ${productList}">
+						<td th:text="${product.productNumber}"></td>
+						<td th:text="${product.productName}"></td>
+						<td
+							th:text="${#numbers.formatInteger(product.price, 1, 'COMMA')} + ' 円'"></td>
+						<td th:text="${product.expirationDate}"></td>
+						<td><a th:href="@{/products/edit/{id}(id=${product.id})}"
+							class="edit-btn"> 編集 </a></td>
 						<td>
 							<form th:action="@{/products/delete/{id}(id=${product.id})}"
-							      method="post"
-							      th:attr="data-name=${product.productName}"
-							      onsubmit="return confirm('「' + this.dataset.name + '」を削除しますか？');">
+								method="post" th:attr="data-name=${product.productName}"
+								onsubmit="return confirm('「' + this.dataset.name + '」を削除しますか？');">
 
-							    <button type="submit" class="edit-btn">
-							        削除
-							    </button>
+								<button type="submit" class="edit-btn">削除</button>
 
 							</form>
 						</td>
-                    </tr>
-                </tbody>
-            </table>
+					</tr>
+				</tbody>
+			</table>
 
-        </div>
+		</div>
 
-        <div class="bottom-actions">
-            <a th:href="@{/top}" class="back-btn">
-                ← 管理画面へ戻る
-            </a>
-        </div>
+		<div class="bottom-actions">
+			<a th:href="@{/top}" class="back-btn"> ← 管理画面へ戻る </a>
+		</div>
 
-    </main>
+	</main>
 
 </body>
 </html>

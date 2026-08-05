@@ -21,8 +21,8 @@ public class Product {
 	private Long id;
 	
 	@NotBlank(message = "商品コードを入力してください")
-	@Column(name="product_code",nullable=false,length=30)
-	private String productCode;
+	@Column(name="product_number",nullable=false,length=30)
+	private String productNumber;
 	
 	@NotBlank(message = "商品名を入力してください")
 	@Column(name="product_name",nullable=false,length=50)
@@ -39,9 +39,9 @@ public class Product {
 	
 	public Product() {}
 	
-	public Product(Long id,String productCode,String productName,BigDecimal price,LocalDate expirationDate) {
+	public Product(Long id,String productNumber,String productName,BigDecimal price,LocalDate expirationDate) {
 		this.id=id;
-		this.productCode=productCode;
+		this.productNumber=productNumber;
 		this.productName=productName;
 		this.price=price;
 		this.expirationDate=expirationDate;
@@ -53,11 +53,11 @@ public class Product {
 	public void setId(long id) {
 		this.id=id;
 	}
-	public String getProductCode() {
-		return productCode;
+	public String getProductNumber() {
+		return productNumber;
 	}
-	public void setProductCode(String productCode) {
-		this.productCode=productCode;
+	public void setProductNumber(String productNumber) {
+		this.productNumber=productNumber;
 	}
 	public String getProductName() {
 		return productName;

@@ -65,6 +65,14 @@ public class User {
 	public void setUserName(String userName) {
 		this.userName=userName;
 	}
+	public String getRoleName() {
+		switch(role){
+			case "ADMIN":return "管理者";
+			case "PLANNER":return "計画担当";
+			case "WORKER":return "作業者";
+			default:return "";
+		}
+	}
 	public String getRole() {
 		return role;
 	}

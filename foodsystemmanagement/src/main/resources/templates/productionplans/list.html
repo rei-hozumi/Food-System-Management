@@ -1,130 +1,106 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html
+    xmlns:th="http://www.thymeleaf.org"
+    xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<link rel="stylesheet"
-      href="https://unpkg.com/ress/dist/ress.min.css">
+<link rel="stylesheet" href="https://unpkg.com/ress/dist/ress.min.css">
 <link rel="stylesheet" th:href="@{/css/products.css}">
+<link rel="stylesheet" th:href="@{/css/common.css}">
 
 <title>製造計画一覧 - Food System Management</title>
 </head>
 
 <body>
 
-<header>
-    <div class="version">Ver.1.0</div>
+	<header>
+		<div class="version">Ver.1.0</div>
 
-    <h1 class="title">Food System Management</h1>
+		<h1 class="title">Food System Management</h1>
 
-    <div class="header-right">
-        <button type="button" onclick="location.href='/'">
-            終了
-        </button>
-    </div>
-</header>
+	<form th:action="@{/logout}" method="post">
+	    <div class="header-right">
+	        <button type="submit">ログアウト</button>
+	    </div>
+	</form>
+	</header>
 
 
 
-<main class="page">
+	<main class="page">
 
-    <div th:if="${message}" class="success-message">
-        <p th:text="${message}"></p>
-    </div>
+		<div th:if="${message}" class="success-message">
+			<p th:text="${message}"></p>
+		</div>
 
-    <div class="page-header">
+		<div class="page-header">
 
-        <h2>製造計画一覧</h2>
+			<h2>製造計画一覧</h2>
 
-        <a th:href="@{/productionPlans/register}"
-           class="add-btn">
-            ＋ 新規登録
-        </a>
+			<a sec:authorize="hasAnyRole('ADMIN','PLANNER')" th:href="@{/productionPlans/register}" class="add-btn"> ＋ 新規登録</a>
+		</div>
+		
+				<!-- 検索 -->
+		<form th:action="@{/productionPlans/search}" method="get">
+			<div class="form-group">
+				<label>商品名</label> <input type="text" name="keyword"
+					placeholder="商品名を入力" th:value="${keyword}">
+			</div>
+			<div class="form-actions">
+				<button type="submit" class="add-btn">検索</button>
+			</div>
+		</form>
 
-    </div>
+		<div class="table-card">
 
-    <div class="table-card">
+			<table class="product-table">
 
-        <table class="product-table">
+				<thead>
+					<tr>
+						<th>注文番号</th>
+						<th>商品名</th>
+						<th>注文数量</th>
+						<th>製造数量</th>
+						<th>担当者</th>
+						<th>ステータス</th>
+						<th>製造開始日</th>
+						<th>納期</th>
+						<th></th>
+						<th></th>
+					</tr>
+				</thead>
 
-            <thead>
+				<tbody>
+					<tr th:each="productionPlan : ${productionPlanList}">
+						<td th:text="${productionPlan.order.orderNumber}"></td>
+						<td th:text="${productionPlan.product != null ? productionPlan.product.productName : '未設定'}"></td>
+						<td th:text="${productionPlan.order.orderQuantity}"></td>
+						<td th:text="${productionPlan.plannedQuantity}"></td>
+						<td th:text="${productionPlan.assignedUser.userName}"></td>
+						<td th:text="${productionPlan.status}"></td>
+						<td th:text="${productionPlan.productionDate}"></td>
+						<td th:text="${productionPlan.order.dueDate}"></td>
+						<td><a sec:authorize="hasAnyRole('ADMIN','PLANNER')"th:href="@{/productionPlans/edit/{id}(id=${productionPlan.id})}"
+							class="edit-btn"> 編集 </a></td>
+						<td>
 
-            <tr>
-                <th>ID</th>
-                <th>注文ID</th>
-                <th>商品名</th>
-                <th>製造数量</th>
-                <th>担当者</th>
-                <th>ステータス</th>
-                <th>製造日</th>
-                <th></th>
-                <th></th>
-            </tr>
+							<form sec:authorize="hasAnyRole('ADMIN','PLANNER')"th:action="@{/productionPlans/delete/{id}(id=${productionPlan.id})}"
+								method="post" th:attr="data-name=${productionPlan.product != null ? productionPlan.product.productName : '未設定'}"
+								onsubmit="return confirm('「' + this.dataset.name + '」を削除しますか？');">
+								<button type="submit" class="edit-btn">削除</button>
+							</form>
 
-            </thead>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+		<div class="bottom-actions">
+			<a th:href="@{/top}" class="back-btn"> ← 管理画面へ戻る </a>
+		</div>
 
-            <tbody>
-
-            <tr th:each="plan : ${productionPlanList}">
-
-                <td th:text="${plan.id}"></td>
-
-                <td th:text="${plan.order.id}"></td>
-
-                <td th:text="${plan.product.productName}"></td>
-
-                <td th:text="${plan.plannedQuantity}"></td>
-
-                <td th:text="${plan.assignedUser.userName}"></td>
-
-                <td th:text="${plan.status}"></td>
-
-                <td th:text="${plan.productionDate}"></td>
-
-                <td>
-
-                    <a th:href="@{/productionPlans/edit/{id}(id=${plan.id})}"
-                       class="edit-btn">
-                        編集
-                    </a>
-
-                </td>
-
-                <td>
-
-                    <form
-                        th:action="@{/productionPlans/delete/{id}(id=${plan.id})}"
-                        method="post"
-                        th:attr="data-name=${plan.product.productName}"
-                        onsubmit="return confirm('「' + this.dataset.name + '」を削除しますか？');">
-
-                        <button type="submit"
-                                class="edit-btn">
-                            削除
-                        </button>
-
-                    </form>
-
-                </td>
-
-            </tr>
-
-            </tbody>
-
-        </table>
-
-    </div>
-
-    <div class="bottom-actions">
-
-        <a th:href="@{/}" class="back-btn">
-            ← 管理画面へ戻る
-        </a>
-
-    </div>
-
-</main>
-
+	</main>
 </body>
 </html>

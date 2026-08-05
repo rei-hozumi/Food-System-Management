@@ -1,60 +1,7 @@
 @charset "UTF-8";
 
-body {
-    margin: 0;
-    font-family: "Yu Gothic", sans-serif;
-    background: #f6f6f6;
-    min-height: 100vh;
-    color: #333;
-}
 
-/* =========================
-   ヘッダー（TOP・ログイン共通）
-========================= */
-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 15px 30px;
-    background-color: #ff8a1c;
-    position: relative;
-}
 
-.title {
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
-    margin: 0;
-    font-size: 36px;
-    font-family: "Yu Gothic", sans-serif;
-    color: rgb(92, 74, 57);
-    font-weight: bold;
-}
-
-.version {
-    font-size: 18px;
-    color: #000;
-}
-
-.header-right {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
-
-.header-right button {
-    padding: 8px 20px;
-    font-size: 16px;
-    border: none;
-    border-radius: 6px;
-    background-color: rgb(250, 227, 193);
-    cursor: pointer;
-    transition: background 0.2s;
-}
-
-.header-right button:hover {
-    background-color: #ffce9c;
-}
 
 /* =========================
    ページ全体
@@ -79,7 +26,7 @@ header {
     color: #8B5A3C;
 }
 
-/* 新規登録ボタン */
+/* ボタン */
 .add-btn {
     display: inline-block;
     padding: 10px 20px;
@@ -104,6 +51,7 @@ header {
     padding: 25px;
     box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
     overflow-x: auto;
+    margin-top:10px;
 }
 
 /* テーブル */
@@ -233,6 +181,14 @@ header {
     border-radius:5px;
     text-align:center;
     font-weight:bold;
+}
+
+/* 検索フォーム */
+.search-area {
+    background: white;
+    padding: 10px;
+    border-radius: 16px;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.08);
 }
 
 /* モバイル */

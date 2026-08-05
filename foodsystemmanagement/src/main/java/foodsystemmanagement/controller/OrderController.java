@@ -4,6 +4,7 @@ import java.util.List;
 
 import jakarta.validation.Valid;
 
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -11,6 +12,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import foodsystemmanagement.entity.Order;
@@ -19,6 +23,8 @@ import foodsystemmanagement.repository.ProductRepository;
 import foodsystemmanagement.service.OrderService;
 
 @Controller
+@RequestMapping("/orders")
+@PreAuthorize("hasAnyRole('ADMIN','PLANNER')")
 public class OrderController {
     private final OrderService orderService;
     private final OrderRepository orderRepository;
@@ -31,14 +37,14 @@ public class OrderController {
     }
     
     // 受注一覧
-    @GetMapping("/orders/list")
+    @GetMapping("/list")
     public String list(Model model) {
         List<Order> orderList = orderService.findAll();
         model.addAttribute("orderList", orderList);
         return "orders/list";
     }
     // 登録画面
-    @GetMapping("/orders/register")
+    @GetMapping("/register")
     public String register(Model model) {
         model.addAttribute("order", new Order());
         
@@ -48,7 +54,7 @@ public class OrderController {
         return "orders/register";
     }
     // 登録
-    @PostMapping("/orders")
+    @PostMapping("/orders/register")
     public String create(
             @Valid @ModelAttribute("order") Order order,
             BindingResult result,
@@ -62,7 +68,7 @@ public class OrderController {
         return "redirect:/orders/list";
     }
     // 編集画面
-    @GetMapping("/orders/edit/{id}")
+    @GetMapping("/edit/{id}")
     public String edit(@PathVariable Long id, Model model) {
         Order order = orderService.findById(id);
         model.addAttribute("order", order);
@@ -70,8 +76,14 @@ public class OrderController {
         model.addAttribute("products",productRepository.findAll());
         return "orders/edit";
     }
+    //注文情報を自動取得するAPI
+    @GetMapping("/api/{id}")
+    @ResponseBody
+    public Order getOrder(@PathVariable Long id) {
+    	return orderService.findById(id);
+    }
     // 更新
-    @PostMapping("/orders/update")
+    @PostMapping("/update")
     public String update(
             @ModelAttribute("order") Order order,
             RedirectAttributes redirectAttributes) {
@@ -82,7 +94,7 @@ public class OrderController {
     }
 
     // 削除
-    @PostMapping("/orders/delete/{id}")
+    @PostMapping("/delete/{id}")
     public String delete(
             @PathVariable Long id,
             RedirectAttributes redirectAttributes) {
@@ -90,5 +102,12 @@ public class OrderController {
         redirectAttributes.addFlashAttribute(
                 "message", "注文を削除しました。");
         return "redirect:/orders/list";
+    }
+    //検索
+    @GetMapping("/search")
+    public String search(@RequestParam(defaultValue = "") String keyword,Model model) {
+    	model.addAttribute("orderList",orderService.search(keyword));
+    	model.addAttribute("keyword",keyword);
+    	return "orders/list";
     }
 }

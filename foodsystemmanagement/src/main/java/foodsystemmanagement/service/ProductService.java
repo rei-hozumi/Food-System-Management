@@ -43,8 +43,8 @@ public class ProductService {
 		return list;
 	}
 	//重複チェック
-	public boolean existsProductCode(String productCode) {
-		return productRepository.findByProductCode(productCode) != null;
+	public boolean existsProductNumber(String productNumber) {
+		return productRepository.findByProductNumber(productNumber) != null;
 	}
 
 }
