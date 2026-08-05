@@ -44,11 +44,25 @@ public class OrderService {
     }
     private int calculateSales(List<Order>orders) {
     	int total =0;
+    	
+    	 System.out.println("注文件数：" + orders.size());
+    	 
     	for(Order o:orders) {
+    		
+    		
+            System.out.println("注文日：" + o.getOrderDate());
+            System.out.println("商品：" + o.getProduct().getProductName());
+            System.out.println("価格：" + o.getProduct().getPrice());
+            System.out.println("数量：" + o.getOrderQuantity());
+            
+            
     		int price = o.getProduct().getPrice().intValue();
     		int quantity = o.getOrderQuantity();
     		total += price*quantity;
     	}
+    	
+    	   System.out.println("売上：" + total);
+    	   
     	return total;
     }
     

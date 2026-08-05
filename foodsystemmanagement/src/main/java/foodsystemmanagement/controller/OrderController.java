@@ -54,7 +54,7 @@ public class OrderController {
         return "orders/register";
     }
     // 登録
-    @PostMapping("/orders/register")
+    @PostMapping("/register")
     public String create(
             @Valid @ModelAttribute("order") Order order,
             BindingResult result,
