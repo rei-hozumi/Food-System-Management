@@ -1,8 +1,8 @@
 # Food System Management
 
 # 開発者
-保住 麗衣
-GitHub:
+- 保住 麗衣
+- GitHub:
 
 ## 概要
 
