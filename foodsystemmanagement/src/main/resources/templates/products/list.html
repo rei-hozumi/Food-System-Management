@@ -58,7 +58,6 @@
 						<th>商品番号</th>
 						<th>商品名</th>
 						<th>単価</th>
-						<th>賞味期限</th>
 						<th></th>
 						<th></th>
 					</tr>
@@ -70,7 +69,6 @@
 						<td th:text="${product.productName}"></td>
 						<td
 							th:text="${#numbers.formatInteger(product.price, 1, 'COMMA')} + ' 円'"></td>
-						<td th:text="${product.expirationDate}"></td>
 						<td><a th:href="@{/products/edit/{id}(id=${product.id})}"
 							class="edit-btn"> 編集 </a></td>
 						<td>

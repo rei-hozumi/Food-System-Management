@@ -1,7 +1,6 @@
 package foodsystemmanagement.entity;
 
 import java.math.BigDecimal;
-import java.time.LocalDate;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -33,18 +32,18 @@ public class Product {
 	@Column(nullable=false,precision=5,scale=2)
 	private BigDecimal price;
 	
-	@NotNull(message = "賞味期限を入力してください")
-	@Column(name="expiration_date")
-	private LocalDate expirationDate;
+	/*	@NotNull(message = "賞味期限を入力してください")
+		@Column(name="expiration_date")
+		private LocalDate expirationDate;*/
 	
 	public Product() {}
 	
-	public Product(Long id,String productNumber,String productName,BigDecimal price,LocalDate expirationDate) {
+	public Product(Long id,String productNumber,String productName,BigDecimal price/*,LocalDate expirationDate*/) {
 		this.id=id;
 		this.productNumber=productNumber;
 		this.productName=productName;
 		this.price=price;
-		this.expirationDate=expirationDate;
+//		this.expirationDate=expirationDate;
 	}
 	
 	public Long getId() {
@@ -71,11 +70,11 @@ public class Product {
 	public void setPrice(BigDecimal price) {
 		this.price=price;
 	}	
-	public LocalDate getExpirationDate() {
-		return expirationDate;
-	}
-	public void setExpirationDate(LocalDate expirationDate) {
-		this.expirationDate=expirationDate;	
-	}
-
+	/*	public LocalDate getExpirationDate() {
+			return expirationDate;
+		}
+		public void setExpirationDate(LocalDate expirationDate) {
+			this.expirationDate=expirationDate;	
+		}
+	*/
 }
