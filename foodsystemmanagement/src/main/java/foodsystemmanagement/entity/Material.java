@@ -45,6 +45,9 @@ public class Material {
 	@Positive(message = "0より大きい数字を入力してください")
 	private int stockQuantity;
 	
+	@Column(nullable=false)
+	private String standard;
+	
 	public Long getId() {
 		return id;
 	}
@@ -89,4 +92,13 @@ public class Material {
 	public void setStockQuantity(int stockQuantity){
 		this.stockQuantity = stockQuantity;
 	}
+	
+	public String getStandard() {
+		return standard;
+	}
+	
+	public void setStandard(String standard){
+		this.standard = standard;
+	}
 }
+

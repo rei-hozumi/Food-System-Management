@@ -7,6 +7,7 @@
 
     <link rel="stylesheet" href="https://unpkg.com/ress/dist/ress.min.css">
     <link rel="stylesheet" th:href="@{/css/products.css}">
+    <link rel="stylesheet" th:href="@{/css/common.css}">
 
     <title>受注登録 - Food System Management</title>
 </head>
@@ -19,11 +20,11 @@
 
         <h1 class="title">Food System Management</h1>
 
-        <div class="header-right">
-            <button type="button" onclick="location.href='/'">
-                終了
-            </button>
-        </div>
+	<form th:action="@{/logout}" method="post">
+	    <div class="header-right">
+	        <button type="submit">ログアウト</button>
+	    </div>
+	</form>
     </header>
 
 

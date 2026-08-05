@@ -1,0 +1,42 @@
+@charset "UTF-8";
+
+header{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    padding: 15px 30px;
+    background-color:#ff8a1c;
+    position:relative;
+}
+
+.title{
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    margin: 0;
+    font-size: 36px;
+    font-family: "Yu Gothic", sans-serif;
+    color: rgb(92, 74, 57);
+    font-weight: bold;
+}
+
+.header-right {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.header-right button {
+    padding: 8px 20px;
+    font-size: 16px;
+    border: none;
+    border-radius: 6px;
+    background-color: rgb(250, 227, 193);
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.header-right button:hover {
+    background-color: #ffce9c;
+}

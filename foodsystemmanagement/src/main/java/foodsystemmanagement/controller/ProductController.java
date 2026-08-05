@@ -4,6 +4,7 @@ import java.util.List;
 
 import jakarta.validation.Valid;
 
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -18,6 +19,7 @@ import foodsystemmanagement.entity.Product;
 import foodsystemmanagement.service.ProductService;
 
 @Controller
+@PreAuthorize("hasAnyRole('ADMIN','PLANNER')")
 public class ProductController {
 	private final ProductService productService;
 	
@@ -42,7 +44,7 @@ public class ProductController {
 	@PostMapping("/products")
 		public String create(@Valid @ModelAttribute("product") Product product,BindingResult result,RedirectAttributes redirectAttributes) {
 		
-		if(productService.existsProductCode(product.getProductCode())) {
+		if(productService.existsProductNumber(product.getProductNumber())) {
 			result.rejectValue("productCode","duplicate","この商品コードは既に登録されています。");
 		}
 		
@@ -78,10 +80,9 @@ public class ProductController {
 	
 	//商品検索
 	@GetMapping("/products/search")
-		public String search(@RequestParam String keyword,Model model) {
+		public String search(@RequestParam(defaultValue = "") String keyword,Model model) {
 		model.addAttribute("productList",productService.search(keyword));
-		model.addAttribute("keyword",
-				keyword);
+		model.addAttribute("keyword",keyword);
 		return "products/list";
 	}
 	

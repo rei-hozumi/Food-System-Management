@@ -40,18 +40,18 @@ public class ProductionPlanService {
 	public void delete(Long id) {
 		productionPlanRepository.deleteById(id);
 	}
-	/*検索
+	//検索
 	public List<ProductionPlan>search(String keyword){
 		System.out.println("検索文字"+keyword);
 		
-		List<ProductionPlan>list = productionPlanRepository.findByProductionPlanNameContaining(keyword);
+		List<ProductionPlan>list = productionPlanRepository.findByProduct_ProductNameContaining(keyword);
 		System.out.println("件数："+list.size());
 		return list;
 	}
 	
-	//重複チェック
-	public boolean existsOrder(Order order) {
-		return productionPlanRepository.findByOrder(Order order) != null;
-	}
-	*/
+	/*	//重複チェック
+		public boolean existsOrder(Order order) {
+			return productionPlanRepository.findByOrder(Order order) != null;
+		}
+		*/
 }

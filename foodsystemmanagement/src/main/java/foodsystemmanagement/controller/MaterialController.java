@@ -4,6 +4,7 @@ import java.util.List;
 
 import jakarta.validation.Valid;
 
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -18,6 +19,7 @@ import foodsystemmanagement.entity.Material;
 import foodsystemmanagement.service.MaterialService;
 
 @Controller
+@PreAuthorize("hasAnyRole('ADMIN','PLANNER')")
 public class MaterialController {
 	private final MaterialService materialService;
 	
@@ -44,16 +46,12 @@ public class MaterialController {
 		public String create(@Valid @ModelAttribute("material") Material material,BindingResult result,RedirectAttributes redirectAttributes){
 		
 		if(result.hasErrors()) {
-			return "material/register";
+			return "materials/register";
 		}
 		materialService.save(material);
 		redirectAttributes.addFlashAttribute("message", "原材料を登録しました。");
 			return "redirect:/materials/list";
 		}
-	@GetMapping("/materials/registrationcomplete")
-		public String registrationComplete() {
-		return "materials/registrationcomplete";
-	}
 	
 	//商品編集
 	@GetMapping("/materials/edit/{id}")
@@ -80,7 +78,7 @@ public class MaterialController {
 	
 	//商品検索
 	@GetMapping("/materials/search")
-		public String search(@RequestParam String  keyword,Model model) {
+		public String search(@RequestParam(defaultValue = "") String  keyword,Model model) {
 		model.addAttribute("materialList",materialService.search(keyword));
 		model.addAttribute("keyword",keyword);
 		return "materials/list";

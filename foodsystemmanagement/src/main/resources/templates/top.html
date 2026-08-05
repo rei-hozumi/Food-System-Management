@@ -1,5 +1,7 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html
+    xmlns:th="http://www.thymeleaf.org"
+    xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -11,6 +13,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Philosopher&display=swap" rel="stylesheet">
 
 <link rel="stylesheet" th:href="@{/css/top.css}">
+<link rel="stylesheet" th:href="@{/css/common.css}">
 <script th:src="@{/js/top.js}" defer></script>
 
 <title>Food System Management</title>
@@ -24,17 +27,29 @@
 
     <h1 class="title">Food System Management</h1>
 
-    <div class="header-right">
-        <button>ログアウト</button>
-    </div>
+	<form th:action="@{/logout}" method="post">
+	    <div class="header-right">
+	        <button type="submit">ログアウト</button>
+	    </div>
+	</form>
 </header>
 
 <nav>
-    <a href="#" onclick="showMenu('product')">商品管理</a>
-    <a href="#" onclick="showMenu('order')">商品受注管理</a>
-    <a href="#" onclick="showMenu('material')">原材料発注管理</a>
-    <a href="#" onclick="showMenu('plan')">製造計画</a>
-    <a href="#" onclick="showMenu('master')">マスタ管理</a>
+    <a href="#" 
+       sec:authorize="hasAnyRole('ADMIN','PLANNER')"
+       onclick="showMenu('order')">
+       受注管理
+    </a>
+    <a href="#" 
+       sec:authorize="hasAnyRole('ADMIN','PLANNER','WORKER')"
+       onclick="showMenu('plan')">
+       製造計画
+    </a>
+    <a href="#" 
+       sec:authorize="hasAnyRole('ADMIN','PLANNER')"
+       onclick="showMenu('master')">
+       マスタ管理
+    </a>
 </nav>
 
 <main>
@@ -46,46 +61,43 @@
 <div class="dashboard">
     <h2>ダッシュボード</h2>
     <div class="card-area">
-        <div class="card">
-            <h3>商品数</h3>
-            <p>
-                <span th:text="${dashboard.productCount}">
-                    0
-                </span> 件
-            </p>
-        </div>
-
-        <div class="card">
-            <h3>原材料数</h3>
-            <p><span th:text="${dashboard.materialCount}">0</span> 件</p>
-        </div>
-
-        <div class="card">
-            <h3>製造予定</h3>
-            <p><span th:text="${dashboard.productionPlanCount}">0</span> 件</p>
-        </div>
-
-        <div class="card warning">
-            <h3>未完了受注</h3>
-            <p><span th:text="${dashboard.unfinishedOrderCount}">0</span> 件</p>
-        </div>
-    </div>
-
-    <h2>売上状況</h2>
-    <div class="card-area">
-        <div class="card sales">
-            <h3>本日の売上</h3>
-            <p>¥<span th:text="${dashboard.todaySales}">0</span></p>
-        </div>
-        <div class="card sales">
-            <h3>今週の売上</h3>
-            <p>¥<span th:text="${dashboard.weekSales}">0</span></p>
-        </div>
-        <div class="card sales">
-            <h3>今月の売上</h3>
-            <p>¥<span th:text="${dashboard.monthSales}">0</span></p>
-        </div>
-    </div>
+        		<!-- <div class="card">
+		        
+		            <h3>登録商品</h3>
+		            <p><span th:text="${#numbers.formatInteger(dashboard.productCount,1,'COMMA')}">0</span> 件</p>
+		        </div>
+		
+		        <div class="card">
+		            <h3>登録原材料</h3>
+		            <p><span th:text="${#numbers.formatInteger(dashboard.materialCount,1,'COMMA')}">0</span> 件</p>
+		        </div> -->
+		
+		    <div class="card">
+		        <h3>本日の製造予定</h3>
+		        <p><span th:text="${#numbers.formatInteger(dashboard.productionPlanCount,1,'COMMA')}">0</span> 件</p>
+		    </div>
+		
+		    <div class="card warning">
+		        <h3>未処理受注</h3>
+		        <p><span th:text="${#numbers.formatInteger(dashboard.unfinishedOrderCount,1,'COMMA')}">0</span> 件</p>
+		    </div>
+		</div>
+	
+	<h2>売上状況</h2>
+	<div class="card-area">
+	    <div class="card sales">
+	        <h3>本日</h3>
+	        <p>¥<span th:text="${#numbers.formatInteger(dashboard.todaySales,1,'COMMA')}">0</span></p>
+	    </div>
+	    <div class="card sales">
+	        <h3>今週</h3>
+	        <p>¥<span th:text="${#numbers.formatInteger(dashboard.weekSales,1,'COMMA')}">0</span></p>
+	    </div>
+	    <div class="card sales">
+	        <h3>今月</h3>
+	        <p>¥<span th:text="${#numbers.formatInteger(dashboard.monthSales,1,'COMMA')}">0</span></p>
+	    </div>
+	</div>
 </div>
 
 
@@ -93,59 +105,27 @@
     <h2>メニューを選択してください</h2>
 </div>
 
-    <!-- 商品 -->
-    <section id="product" class="menu-card">
-        <h2>商品管理</h2>
-
-        <a th:href="@{/products/list}" class="menu-btn">
-            商品一覧
-        </a>
-    </section>
 
     <!-- 受注 -->
     <section id="order" class="menu-card">
-        <h2>商品受注管理</h2>
-
-        <a th:href="@{/orders/list}" class="menu-btn">
-            受注一覧
-        </a>
+        <h2>受注管理</h2>
+        <a th:href="@{/orders/list}" class="menu-btn">受注一覧</a>
     </section>
 
-    <!-- 原材料 -->
-    <section id="material" class="menu-card">
-        <h2>原材料発注管理</h2>
 
-        <a th:href="@{/materials/list}" class="menu-btn">
-            原材料一覧
-        </a>
-    </section>
 
     <!-- 製造計画 -->
     <section id="plan" class="menu-card">
         <h2>製造計画</h2>
-
-        <a th:href="@{/productionPlans/list}" class="menu-btn">
-            製造計画一覧
-        </a>
+        <a th:href="@{/productionPlans/list}" class="menu-btn">製造計画一覧</a>
     </section>
 
     <!-- マスタ -->
     <section id="master" class="menu-card">
-
         <h2>マスタ管理</h2>
-
-        <a th:href="@{/products/list}" class="menu-btn">
-            商品マスタ
-        </a>
-
-        <a th:href="@{/materials/list}" class="menu-btn">
-            原材料マスタ
-        </a>
-
-        <a th:href="@{/users/list}" class="menu-btn">
-            ユーザーマスタ
-        </a>
-
+        <a th:href="@{/products/list}" class="menu-btn">商品一覧</a>
+        <a th:href="@{/materials/list}" class="menu-btn">原材料一覧</a>
+        <a sec:authorize="hasRole('ADMIN')" th:href="@{/users/list}" class="menu-btn">ユーザー一覧</a>
     </section>
 
 </main>

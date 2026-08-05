@@ -31,14 +31,16 @@ public class OrderService {
     }
     public int getWeekSales(){
         LocalDate start = LocalDate.now().with(DayOfWeek.MONDAY);
-        LocalDate end = start.plusDays(6);
-        return orderRepository.sumSalesBetween(start,end);
+        LocalDate end = LocalDate.now();
+        List<Order> orders = orderRepository.findByOrderDateBetween(start,end);
+        return calculateSales(orders);
     }
     public int getMonthSales(){
         LocalDate now = LocalDate.now();
         LocalDate start = now.withDayOfMonth(1);
-        LocalDate end = now.withDayOfMonth(now.lengthOfMonth());
-        return orderRepository.sumSalesBetween(start,end);
+        LocalDate end = now;
+        List<Order> orders = orderRepository.findByOrderDateBetween(start,end);
+        return calculateSales(orders);
     }
     private int calculateSales(List<Order>orders) {
     	int total =0;
@@ -73,19 +75,23 @@ public class OrderService {
     	return String.format("ORD%04d",number);
     }
 
-
     // 注文取得（ID検索）
     public Order findById(Long id) {
         return orderRepository.findById(id).orElseThrow();
     }
-
     // 注文更新
     public void update(Order order) {
         orderRepository.save(order);
     }
-
     // 注文削除
     public void delete(Long id) {
         orderRepository.deleteById(id);
     }
+	//検索
+	public List<Order> search(String keyword){
+		System.out.println("検索文字："+keyword);
+		List<Order>list=orderRepository.findByOrderNumberContaining(keyword);
+		System.out.println("件数："+list.size());
+		return list;
+	}
 }

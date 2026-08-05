@@ -26,11 +26,10 @@ public class ProductionPlan {
 	@JoinColumn(name="order_id")
 	private Order order;
 	
-	@ManyToOne
-	@JoinColumn(name="product_id")
+	@ManyToOne(optional = false)
+	@JoinColumn(name = "product_id", nullable = false)
 	private Product product;
 	
-	@NotNull(message = "製造数量を入力してください")
 	@Positive
 	@Column(name="planned_quantity")
 	private Integer plannedQuantity;
@@ -96,7 +95,7 @@ public class ProductionPlan {
 		this.status = status;
 	}
 	
-	public LocalDate getProducitonDate() {
+	public LocalDate getProductionDate() {
 		return productionDate;
 	}
 	

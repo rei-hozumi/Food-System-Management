@@ -6,17 +6,21 @@
 
 <link rel="stylesheet" href="https://unpkg.com/ress/dist/ress.min.css">
 
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link
+	href="https://fonts.googleapis.com/css2?family=Philosopher&display=swap"
+	rel="stylesheet">
+
 <link rel="stylesheet" th:href="@{/css/products.css}">
 <link rel="stylesheet" th:href="@{/css/common.css}">
-<title>受注一覧 - Food System Management</title>
+
+<title>ユーザー一覧 - Food System Management</title>
 
 </head>
-
 <body>
-
 	<header>
 		<div class="version">Ver.1.0</div>
-
 		<h1 class="title">Food System Management</h1>
 
 		<form th:action="@{/logout}" method="post">
@@ -25,69 +29,59 @@
 			</div>
 		</form>
 	</header>
-
 	<main class="page">
 
 		<div class="page-header">
-			<h2>受注一覧</h2>
+			<h2>ユーザー一覧</h2>
+			<a th:href="@{/users/register}" class="add-btn"> ＋ 新規登録 </a>
 
-			<div th:if="${message}" class="success-message">
-				<p th:text="${message}"></p>
-			</div>
-
-			<a th:href="@{/orders/register}" class="add-btn"> ＋ 新規登録 </a>
 		</div>
 
 		<!-- 検索 -->
-		<form th:action="@{/orders/search}" method="get">
+		<form th:action="@{/users/search}" method="get" class="search-form">
+
 			<div class="form-group">
-				<label>受注番号</label> <input type="text" name="keyword"
-					placeholder="受注番号を入力" th:value="${keyword}">
+				<label>社員番号</label> <input type="text" name="keyword"
+					placeholder="社員番号を入力" th:value="${keyword}">
 			</div>
+
 			<div class="form-actions">
 				<button type="submit" class="add-btn">検索</button>
 			</div>
+
 		</form>
 
 		<div class="table-card">
-
 			<table class="product-table">
 				<thead>
 					<tr>
-						<th>受注番号</th>
-						<th>受注日</th>
-						<th>商品名</th>
-						<th>受注数量</th>
-						<th>納期</th>
-						<th>受注ステータス</th>
+						<th>ログインID</th>
+						<th>ユーザー名</th>
+						<th>権限</th>
 						<th></th>
 						<th></th>
 					</tr>
 				</thead>
 
 				<tbody>
-					<tr th:each="order : ${orderList}">
-						<td th:text="${order.orderNumber}"></td>
-						<td th:text="${order.orderDate}"></td>
-						<td th:text="${order.product.productName}"></td>
-						<td th:text="${order.orderQuantity}"></td>
-						<td th:text="${order.dueDate}"></td>
-						<td th:text="${order.status}"></td>
-						<td><a th:href="@{/orders/edit/{id}(id=${order.id})}"
+					<tr th:each="user : ${userList}">
+						<td th:text="${user.loginId}"></td>
+						<td th:text="${user.userName}"></td>
+						<td th:text="${user.roleName}"></td>
+						<td><a th:href="@{/users/edit/{id}(id=${user.id})}"
 							class="edit-btn"> 編集 </a></td>
 						<td>
-							<form th:action="@{/orders/delete/{id}(id=${order.id})}"
-								method="post" th:attr="data-name=${order.orderNumber}"
+
+							<form th:action="@{/users/delete/{id}(id=${user.id})}"
+								method="post" th:attr="data-name=${user.userName}"
 								onsubmit="return confirm('「' + this.dataset.name + '」を削除しますか？');">
-
 								<button type="submit" class="edit-btn">削除</button>
-
 							</form>
 						</td>
+
 					</tr>
 				</tbody>
 			</table>
-
 		</div>
 
 		<div class="bottom-actions">
@@ -95,6 +89,5 @@
 		</div>
 
 	</main>
-
 </body>
 </html>

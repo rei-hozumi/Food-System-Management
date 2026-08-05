@@ -2,10 +2,10 @@ package foodsystemmanagement.dto;
 
 
 public class TopDashboardDto {
-		//商品件数
-		private long productCount;
-		//原材料件数
-		private long materialCount;
+	/*		//商品件数
+			private long productCount;
+			//原材料件数
+			private long materialCount;*/
 		//製造予定件数
 		private long productionPlanCount;
 		//未完了受注件数
@@ -16,18 +16,19 @@ public class TopDashboardDto {
 		private int weekSales;
 		//今月の売り上げ
 		private int monthSales;
-		public long getProductCount() {
-			return productCount;
-		}
-		public void setProductCount(long productCount) {
-			this.productCount = productCount;
-		}
-		public long getMaterialCount() {
-			return materialCount;
-		}
-		public void setMaterialCount(long materialCount) {
-			this.materialCount = materialCount;
-		}
+
+		/*		public long getProductCount() {
+					return productCount;
+				}
+				public void setProductCount(long productCount) {
+					this.productCount = productCount;
+				}
+				public long getMaterialCount() {
+					return materialCount;
+				}
+				public void setMaterialCount(long materialCount) {
+					this.materialCount = materialCount;
+				}*/
 		public long getProductionPlanCount() {
 			return productionPlanCount;
 		}

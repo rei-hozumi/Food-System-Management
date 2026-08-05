@@ -20,16 +20,23 @@
 </head>
 
 <body>
-
+<div class="login-container">
+    <div class="error-message" th:if="${param.logout}">ログアウトしました。</div>
+    <div class="error-message" th:if="${param.error}">ログインIDまたはパスワードが違います。</div>
+    
+</div>
 <div class="form-box">
 
     <h1 class="title">Food System Management</h1>
     <h2>ログイン</h2>
+    
+
+
 
 	<form th:action="@{/login}" method="post">
 	    <div class="form-group">
 	        <label>社員番号：</label>
-	        <input type="text" name="loginId">
+	        <input type="text" name="username">
 	
 	        <label>パスワード：</label>
 	        <input type="password" name="password">
