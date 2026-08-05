@@ -218,19 +218,20 @@ CREATE DATABASE food_system_management;
 
 ---
 
-### 初期ユーザー
+### 初期設定済
 ```md
-| ログインID | パスワード | 権限 |
-|---|---|---|
-| admin | admin123 | ADMIN |
-| planner | planner123 | PLANNER |
-| worker | worker123 | WORKER |
+| ログインID |  パスワード |  権限   |
+|   admin   |  admin123  |  ADMIN  |
+|  planner  | planner123 | PLANNER |
+|   worker  |  worker123 | WORKER  |
+
+サンプル：商品・原材料・受注・製造計画も数件保存済みです。
 ```
 ※パスワードはデモ用です。
 
 ---
 
-###アプリケーション起動
+### アプリケーション起動
 プロジェクトのルートディレクトリで以下を実行してください。
 
 ./mvnw spring-boot:run
@@ -240,14 +241,14 @@ FoodSystemManagementApplication.java をSpring Bootアプリケーションと�
 
 ---
 
-###ブラウザでアクセス
+### ブラウザでアクセス
 起動後、以下のURLへアクセスしてください。
 
 http://localhost:8080
 
 ---
 
-###ログイン
+### ログイン
 登録済みユーザーでログインしてください。
 
 権限によって利用できる機能が異なります。
