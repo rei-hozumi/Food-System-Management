@@ -30,6 +30,7 @@ public class ProductionPlan {
 	@JoinColumn(name = "product_id", nullable = false)
 	private Product product;
 	
+	@NotNull(message = "数量を入力してください")
 	@Positive
 	@Column(name="planned_quantity")
 	private Integer plannedQuantity;

@@ -45,7 +45,7 @@ public class ProductController {
 		public String create(@Valid @ModelAttribute("product") Product product,BindingResult result,RedirectAttributes redirectAttributes) {
 		
 		if(productService.existsProductNumber(product.getProductNumber())) {
-			result.rejectValue("productCode","duplicate","この商品コードは既に登録されています。");
+			result.rejectValue("productNumber","duplicate","この商品コードは既に登録されています。");
 		}
 		
 		if(result.hasErrors()) {
@@ -64,7 +64,7 @@ public class ProductController {
 			return "products/edit";
 		}
 	@PostMapping("/products/update")
-		public String update(Product product,RedirectAttributes redirectAttributes) {
+		public String update(@Valid Product product,RedirectAttributes redirectAttributes) {
 			productService.update(product);
 			redirectAttributes.addFlashAttribute("message", "商品を修正しました。");
 			return "redirect:/products/list";

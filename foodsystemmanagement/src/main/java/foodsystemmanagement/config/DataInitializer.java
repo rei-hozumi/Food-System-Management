@@ -29,11 +29,13 @@ public class DataInitializer implements CommandLineRunner {
     private final MaterialRepository materialRepository;
     private final OrderRepository orderRepository;
     private final ProductionPlanRepository productionPlanRepository;
-
     private final PasswordEncoder passwordEncoder;
+    
 
     @Override
     public void run(String... args) throws Exception {
+    	
+    	if(userRepository.count() == 0) {
             User admin = new User();
             admin.setLoginId("admin");
             admin.setPassword(passwordEncoder.encode("admin123"));
@@ -60,7 +62,7 @@ public class DataInitializer implements CommandLineRunner {
             Product product1 = new Product();
             product1.setProductNumber("P001");
             product1.setProductName("チョコレートケーキ");
-            product1.setPrice(new BigDecimal("1200"));
+            product1.setPrice(new BigDecimal("462"));
             productRepository.save(product1);
 
             Product product2 = new Product();
@@ -109,6 +111,7 @@ public class DataInitializer implements CommandLineRunner {
             
             //受注登録
             Order order1 = new Order();
+            order1.setOrderNumber("ORD0001");
             order1.setOrderDate(LocalDate.now());
             order1.setDueDate(LocalDate.now().plusDays(3));
             order1.setProduct(product1);
@@ -117,6 +120,7 @@ public class DataInitializer implements CommandLineRunner {
             orderRepository.save(order1);
 
             Order order2 = new Order();
+            order2.setOrderNumber("ORD0002");
             order2.setOrderDate(LocalDate.now());
             order2.setDueDate(LocalDate.now().plusDays(5));
             order2.setProduct(product2);
@@ -144,5 +148,6 @@ public class DataInitializer implements CommandLineRunner {
             productionPlanRepository.save(plan2);
             
             System.out.println("初期データ登録完了");
+    	}
     }
 }

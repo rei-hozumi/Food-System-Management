@@ -48,7 +48,7 @@ public class LoginUser implements UserDetails {
     //有効ユーザー
     @Override
     public boolean isEnabled() {
-        return true;
+        return  user.isEnabled();
     }
     //Userエンティティ取得
     public User getUser() {

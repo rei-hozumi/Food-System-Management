@@ -12,4 +12,6 @@ public interface UserRepository extends JpaRepository<User, Long> {
 	
 	//検索
 	List<User>findByLoginIdContaining(String loginId);
+	
+    boolean existsByLoginId(String loginId);
 }

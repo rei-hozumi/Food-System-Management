@@ -33,6 +33,16 @@
 			<form th:action="@{/materials}" th:object="${material}" method="post"
 				class="edit-form">
 
+				<div class="error-message" th:if="${#fields.hasErrors()}">
+					<div th:errors="*{materialCode}"></div>
+					<div th:errors="*{materialName}"></div>
+					<div th:errors="*{standard}"></div>
+					<div th:errors="*{price}"></div>
+					<div th:errors="*{stockQuantity}"></div>
+					<div th:errors="*{unit}"></div>
+					<div th:errors="*{expirationDate}"></div>
+				</div>
+
 				<div class="form-group">
 					<div>
 						<label>原材料コード</label> <input type="text"

@@ -26,7 +26,7 @@
 	<main class="page">
 
 		<div class="page-header">
-			<h2>製造計画登録</h2>
+			<h2>製造計画編集</h2>
 		</div>
 
 		<div class="table-card">
@@ -34,6 +34,14 @@
 			<form th:action="@{/productionPlans/update}"
 				th:object="${productionPlan}" method="post" class="edit-form">
 				<input type="hidden" th:field="*{id}">
+
+				<div class="error-message" th:if="${#fields.hasErrors()}">
+					<div th:errors="*{order.id}"></div>
+					<div th:errors="*{plannedQuantity}"></div>
+					<div th:errors="*{assignedUser}"></div>
+					<div th:errors="*{status}"></div>
+					<div th:errors="*{productionDate}"></div>
+				</div>
 
 				<!-- 注文 -->
 				<div class="form-group">
@@ -52,7 +60,7 @@
 				</div>
 
 				<div class="form-group">
-					<label>注文数量</label> <input type="text"id="orderQuantity"
+					<label>注文数量</label> <input type="text" id="orderQuantity"
 						th:value="${productionPlan.order.orderQuantity}" readonly>
 				</div>
 
@@ -88,12 +96,12 @@
 
 				<!-- 製造日 -->
 				<div class="form-group">
-					<label>製造日</label> <input type="date"  th:field="*{productionDate}">
-					<div class="error" th:errors="*{productionDate}"></div>
+					<label>製造日</label> <input type="date" th:field="*{productionDate}">
 				</div>
 
 				<div class="form-group">
-					<label>納期</label> <input type="date" id="dueDate"th:value="${productionPlan.order.dueDate}">
+					<label>納期</label> <input type="date" id="dueDate"
+						th:value="${productionPlan.order.dueDate}">
 				</div>
 
 				<div class="form-actions">

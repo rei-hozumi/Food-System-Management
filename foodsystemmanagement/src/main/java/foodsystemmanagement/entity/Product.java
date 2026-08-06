@@ -29,7 +29,7 @@ public class Product {
 	
 	@NotNull(message = "価格を入力してください")
 	@Positive(message = "０より大きい値を入力してください")
-	@Column(nullable=false,precision=5,scale=2)
+	@Column(nullable=false,precision=10,scale=2)
 	private BigDecimal price;
 	
 	/*	@NotNull(message = "賞味期限を入力してください")

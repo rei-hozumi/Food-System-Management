@@ -33,12 +33,21 @@
 
 		<div class="page-header">
 			<h2>ユーザー一覧</h2>
+
+			<div th:if="${message}" class="success-message">
+				<p th:text="${message}"></p>
+			</div>
+			<div th:if="${error}" class="error-message">
+				<p th:text="${error}"></p>
+			</div>
+
 			<a th:href="@{/users/register}" class="add-btn"> ＋ 新規登録 </a>
 
 		</div>
 
 		<!-- 検索 -->
 		<form th:action="@{/users/search}" method="get" class="search-form">
+
 
 			<div class="form-group">
 				<label>社員番号</label> <input type="text" name="keyword"
@@ -55,7 +64,7 @@
 			<table class="product-table">
 				<thead>
 					<tr>
-						<th>ログインID</th>
+						<th>社員番号</th>
 						<th>ユーザー名</th>
 						<th>権限</th>
 						<th></th>
@@ -68,16 +77,16 @@
 						<td th:text="${user.loginId}"></td>
 						<td th:text="${user.userName}"></td>
 						<td th:text="${user.roleName}"></td>
-						<td><a th:href="@{/users/edit/{id}(id=${user.id})}"
+						<td><a th:if="${user.enabled}"th:href="@{/users/edit/{id}(id=${user.id})}"
 							class="edit-btn"> 編集 </a></td>
-						<td>
+						<td><span th:if="${user.enabled}">
+								<form th:action="@{/users/delete/{id}(id=${user.id})}"
+									method="post" onsubmit="return confirm('このユーザーを無効化しますか？');">
 
-							<form th:action="@{/users/delete/{id}(id=${user.id})}"
-								method="post" th:attr="data-name=${user.userName}"
-								onsubmit="return confirm('「' + this.dataset.name + '」を削除しますか？');">
-								<button type="submit" class="edit-btn">削除</button>
-							</form>
-						</td>
+									<button type="submit">無効化</button>
+
+								</form>
+						</span> <span th:unless="${user.enabled}"> 無効 </span></td>
 
 					</tr>
 				</tbody>

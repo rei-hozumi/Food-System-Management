@@ -24,38 +24,52 @@
 	<header>
 		<div class="version">Ver.1.0</div>
 		<h1 class="title">Food System Management</h1>
-	<form th:action="@{/logout}" method="post">
-	    <div class="header-right">
-	        <button type="submit">ログアウト</button>
-	    </div>
-	</form>
+		<form th:action="@{/logout}" method="post">
+			<div class="header-right">
+				<button type="submit">ログアウト</button>
+			</div>
+		</form>
 	</header>
 
 	<main class="page">
 
 		<div class="page-header">
-			<h2 th:text="${user.userName != null ? user.userName + ' の編集':'ユーザー編集'}"></h2>
+			<h2
+				th:text="${user.userName != null ? user.userName + ' の編集':'ユーザー編集'}"></h2>
 		</div>
 
 		<div class="table-card">
 
-			<form th:action="@{/users/update}" th:object="${user}" method="post"class="edit-form">
+			<form th:action="@{/users/update}" th:object="${user}" method="post"
+				class="edit-form">
+				<input type="text" th:field="*{loginId}" readonly>
+
+
+				<div class="error-message" th:if="${#fields.hasErrors()}">
+					<div th:errors="*{loginId}"></div>
+					<div th:errors="*{userName}"></div>
+					<div th:errors="*{password}"></div>
+					<div th:errors="*{role}"></div>
+				</div>
+
 				<div class="form-group">
-					<label>社員番号：</label>
-						<input type="text" th:value="${user.loginId}" readonly>
-						<input type="hidden" th:field="*{id}">
+					<label>社員番号：</label> <input type="text" th:value="${user.loginId}"
+						readonly> <input type="hidden" th:field="*{id}">
 				</div>
 				<div class="form-group">
-					<label>ユーザー名：</label>
-						<input type="text" th:field="*{userName}">
+					<label>ユーザー名：</label> <input type="text" th:field="*{userName}">
+				</div>
+
+				<div class="form-group">
+					<label>パスワード：</label> <input type="password" name="password"
+						placeholder="変更する場合のみ入力">
 				</div>
 				<div class="form-group">
-					<label>権限：</label>
-						<select th:field="*{role}">
-							<option value="ADMIN">管理者</option>
-							<option value="PLANNER">計画担当</option>
-							<option value="WORKER">作業者</option>
-						</select>
+					<label>権限：</label> <select th:field="*{role}">
+						<option value="ADMIN">管理者</option>
+						<option value="PLANNER">計画担当</option>
+						<option value="WORKER">作業者</option>
+					</select>
 				</div>
 
 				<div class="form-actions">
