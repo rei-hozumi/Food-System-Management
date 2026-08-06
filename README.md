@@ -304,16 +304,6 @@ FoodSystemManagementApplication.java をSpring Bootアプリケーションと�
 http://localhost:8080
 
 
-
-
-
-
-
-
-
-
-
-
 ### ログイン
 登録済みユーザーでログインしてください。
 権限によって利用できる機能が異なります。
@@ -321,4 +311,17 @@ http://localhost:8080
 - ADMIN	    全機能
 - PLANNER	  製造計画・受注管理など
 - WORKER	  製造計画の確認・編集
+
+---
+
+## ドキュメント
+
+-[要件定義・システム・DB設計](docs/要件定義・システム・DB設計.md)<br>
+-[テスト仕様書](docs/Food_System_Management_テスト仕様書.xlsx)
+
+
+
+
+
+
 
