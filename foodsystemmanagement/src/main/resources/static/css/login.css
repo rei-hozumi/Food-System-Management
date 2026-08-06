@@ -12,16 +12,16 @@ body {
 	height: 100vh;
 }
 
+
 .error-message {
-	position: absolute;
-	margin-top: 130px;
+	margin-bottom: 20px;
 	padding: 12px;
-	transform: translateX(-50%);
 	background: #e8f5e9;
 	color: #2e7d32;
 	border: 1px solid #81c784;
 	border-radius: 5px;
-	width: 400px;
+	width: 100%;
+	box-sizing: border-box;
 	text-align: center;
 	font-weight: bold;
 }

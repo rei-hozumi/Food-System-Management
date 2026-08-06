@@ -21,11 +21,11 @@
 
 		<h1 class="title">Food System Management</h1>
 
-	<form th:action="@{/logout}" method="post">
-	    <div class="header-right">
-	        <button type="submit">ログアウト</button>
-	    </div>
-	</form>
+		<form th:action="@{/logout}" method="post">
+			<div class="header-right">
+				<button type="submit">ログアウト</button>
+			</div>
+		</form>
 
 	</header>
 
@@ -37,42 +37,36 @@
 
 		<div class="table-card">
 
-			<form th:action="@{/productionPlans/register}" th:object="${productionPlan}"
-				method="post" class="edit-form">
+			<form th:action="@{/productionPlans/register}"
+				th:object="${productionPlan}" method="post" class="edit-form">
+
+				<div class="error-message" th:if="${#fields.hasErrors()}">
+					<div th:errors="*{order.id}"></div>
+					<div th:errors="*{plannedQuantity}"></div>
+					<div th:errors="*{assignedUser}"></div>
+					<div th:errors="*{status}"></div>
+					<div th:errors="*{productionDate}"></div>
+				</div>
 
 				<div class="form-group">
-					<label>注文番号</label>
-						<select id="orderSelect" name="orderId">
-							<option value="">選択してください</option>
-							<option th:each="order : ${orders}" th:value="${order.id}"
-								th:text="${order.orderNumber}"></option>
-						</select>
+					<label>注文番号</label> <select id="orderSelect" name="orderId">
+						<option value="">選択してください</option>
+						<option th:each="order : ${orders}" th:value="${order.id}"
+							th:text="${order.orderNumber}"></option>
+					</select>
 				</div>
 
 				<div class="form-group">
 					<label>商品名</label> <input type="text" id="productName" readonly>
 				</div>
 
-				<!--             <div class="form-group">
-                <label>商品ID</label>
-                	<select th:field="*{product}">
-                	<option value="">選択してください</option>
-					    <option th:each="product : ${products}"
-					            th:value="${product.id}"
-					            th:text="${product.productNumber}">
-					    </option>
-					</select>
-            </div> -->
+				<div class="form-group">
+					<label>注文数量</label> <input type="text" id="orderQuantity" readonly>
+				</div>
 
 				<div class="form-group">
-				    <label>注文数量</label>
-				    <input type="text" id="orderQuantity" readonly>
-				</div>
-				
-				<div class="form-group">
-				    <label>製造数量</label>
-				    <input type="number" th:field="*{plannedQuantity}">
-				    <div class="error" th:errors="*{plannedQuantity}"></div>
+					<label>製造数量</label> <input type="number"
+						th:field="*{plannedQuantity}">
 				</div>
 
 				<div class="form-group">
@@ -81,7 +75,6 @@
 						<option th:each="user : ${users}" th:value="${user.id}"
 							th:text="${user.userName}"></option>
 					</select>
-					<div class="error" th:errors="*{assignedUser}"></div>
 				</div>
 
 				<div class="form-group">
@@ -91,14 +84,13 @@
 						<option value="製造中">製造中</option>
 						<option value="完了">完了</option>
 					</select>
-					<div class="error" th:errors="*{status}"></div>
 				</div>
 
 				<div class="form-group">
-					<label>製造開始日</label> <input type="date" th:field="*{productionDate}">
-					<div class="error" th:errors="*{productionDate}"></div>
+					<label>製造開始日</label> <input type="date"
+						th:field="*{productionDate}">
 				</div>
-				
+
 				<div class="form-group">
 					<label>納期</label> <input type="text" id="dueDate" readonly>
 				</div>

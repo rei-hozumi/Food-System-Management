@@ -5,18 +5,23 @@ import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.util.List;
 
+import jakarta.transaction.Transactional;
+
 import org.springframework.stereotype.Service;
 
 import foodsystemmanagement.entity.Order;
 import foodsystemmanagement.repository.OrderRepository;
+import foodsystemmanagement.repository.ProductionPlanRepository;
 
 @Service
 public class OrderService {
 
     private final OrderRepository orderRepository;
+    private final ProductionPlanRepository productionPlanRepository;
 
-    public OrderService(OrderRepository orderRepository) {
+    public OrderService(OrderRepository orderRepository,ProductionPlanRepository productionPlanRepository) {
         this.orderRepository = orderRepository;
+        this.productionPlanRepository = productionPlanRepository;
     }
 
     //ダッシュボードの未完了受注数取得
@@ -98,7 +103,10 @@ public class OrderService {
         orderRepository.save(order);
     }
     // 注文削除
+    @Transactional
     public void delete(Long id) {
+    	//先に製造計画を削除、その後受注削除
+        productionPlanRepository.deleteByOrderId(id);
         orderRepository.deleteById(id);
     }
 	//検索

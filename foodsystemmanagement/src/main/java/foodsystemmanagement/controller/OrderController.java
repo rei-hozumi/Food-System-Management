@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import foodsystemmanagement.entity.Order;
+import foodsystemmanagement.entity.Product;
 import foodsystemmanagement.repository.OrderRepository;
 import foodsystemmanagement.repository.ProductRepository;
 import foodsystemmanagement.service.OrderService;
@@ -36,6 +37,11 @@ public class OrderController {
         this.productRepository = productRepository;
     }
     
+    @ModelAttribute("products")
+    public List<Product> products(){
+    	return productRepository.findAll();
+    }
+    
     // 受注一覧
     @GetMapping("/list")
     public String list(Model model) {
@@ -47,17 +53,12 @@ public class OrderController {
     @GetMapping("/register")
     public String register(Model model) {
         model.addAttribute("order", new Order());
-        
-        //product一覧取得
-        model.addAttribute("products",productRepository.findAll());
-        
         return "orders/register";
     }
     // 登録
     @PostMapping("/register")
     public String create(
-            @Valid @ModelAttribute("order") Order order,
-            BindingResult result,
+            @Valid @ModelAttribute("order") Order order,BindingResult result,Model model,
             RedirectAttributes redirectAttributes) {
         if (result.hasErrors()) {
             return "orders/register";
@@ -72,8 +73,6 @@ public class OrderController {
     public String edit(@PathVariable Long id, Model model) {
         Order order = orderService.findById(id);
         model.addAttribute("order", order);
-        //product一覧取得
-        model.addAttribute("products",productRepository.findAll());
         return "orders/edit";
     }
     //注文情報を自動取得するAPI
@@ -85,8 +84,11 @@ public class OrderController {
     // 更新
     @PostMapping("/update")
     public String update(
-            @ModelAttribute("order") Order order,
+            @Valid @ModelAttribute("order") Order order,BindingResult result,Model model,
             RedirectAttributes redirectAttributes) {
+        if (result.hasErrors()) {
+            return "orders/edit";
+        }
         orderService.update(order);
         redirectAttributes.addFlashAttribute(
                 "message", "注文を更新しました。");

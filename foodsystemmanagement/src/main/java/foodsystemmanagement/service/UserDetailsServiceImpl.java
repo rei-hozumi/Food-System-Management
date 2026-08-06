@@ -26,6 +26,6 @@ public class UserDetailsServiceImpl implements UserDetailsService {
                         new UsernameNotFoundException("ユーザーが存在しません"));
 
         return new LoginUser(user);
-    }
-    
+        
+    } 
 }

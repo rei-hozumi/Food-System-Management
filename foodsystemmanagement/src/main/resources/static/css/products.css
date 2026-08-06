@@ -183,6 +183,17 @@
     font-weight:bold;
 }
 
+.error-message{
+	margin:15px 0;
+    padding:12px;
+    background:#E73C3C2B;
+    color:#E73C3CFF;
+    border:1px solid #E73C3C91;
+    border-radius:5px;
+    text-align:center;
+    font-weight:bold;
+}
+
 /* 検索フォーム */
 .search-area {
     background: white;

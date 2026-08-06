@@ -10,6 +10,8 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
 @Entity
 @Table(name="orders")
@@ -21,12 +23,15 @@ public class Order {
 	@Column(name="order_number",nullable=false,unique=true,length=30)
 	private String orderNumber;
 	
+	@NotNull(message = "受注日を入力してください")
 	@Column(name="order_date",nullable=false)
 	private LocalDate orderDate;
 	
+	@NotNull(message = "納期を入力してください")
 	@Column(name="due_date",nullable=false)
 	private LocalDate dueDate;
 	
+	@NotBlank(message = "ステータスを入力してください")
 	@Column(nullable=false,length=10)
 	private String status;
 	
@@ -34,6 +39,7 @@ public class Order {
 	@JoinColumn(name="product_id",nullable=false)
 	private Product product;
 	
+	@NotNull(message = "数量を入力してください")
 	@Column(name="order_quantity",nullable=false)
 	private Integer orderQuantity;
 

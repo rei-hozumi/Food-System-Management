@@ -1,93 +1,90 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <link rel="stylesheet" href="https://unpkg.com/ress/dist/ress.min.css">
-    <link rel="stylesheet" th:href="@{/css/products.css}">
-    <link rel="stylesheet" th:href="@{/css/common.css}">
+<link rel="stylesheet" href="https://unpkg.com/ress/dist/ress.min.css">
+<link rel="stylesheet" th:href="@{/css/products.css}">
+<link rel="stylesheet" th:href="@{/css/common.css}">
 
 
 
-    <title>商品登録 - Food System Management</title>
+<title>商品登録 - Food System Management</title>
 </head>
 
 <body>
 
-    <!-- ヘッダー（共通） -->
-    <header>
-        <div class="version">Ver.1.0</div>
+	<!-- ヘッダー（共通） -->
+	<header>
+		<div class="version">Ver.1.0</div>
 
-        <h1 class="title">Food System Management</h1>
+		<h1 class="title">Food System Management</h1>
 
-	<form th:action="@{/logout}" method="post">
-	    <div class="header-right">
-	        <button type="submit">ログアウト</button>
-	    </div>
-	</form>
-    </header>
+		<form th:action="@{/logout}" method="post">
+			<div class="header-right">
+				<button type="submit">ログアウト</button>
+			</div>
+		</form>
+	</header>
 
-    <!-- メイン -->
-    <main class="page">
-
-        <div class="page-header">
-            <h2>商品登録</h2>
-        </div>
-
-        <!-- 登録カード -->
-        <div class="table-card">
-
-            <form th:action="@{/products}"
-                  th:object="${product}"
-                  method="post"
-                  class="edit-form">
-
-                <div class="form-group">
-                    <label>商品コード</label>
-                    <input type="text"
-                           th:field="*{productNumber}"
-                           placeholder="例：P001">
-                </div>
-
-                <div class="form-group">
-                    <label>商品名</label>
-                    <input type="text"
-                           th:field="*{productName}"
-                           placeholder="例：チョコレートケーキ">
-                </div>
-
-                <div class="form-group">
-                    <label>単価</label>
-                    <input type="number"
-                           th:field="*{price}"
-                           placeholder="例：1200">
-                </div>
+	<!-- メイン -->
+	<main class="page">
 
 
+		<div class="page-header">
+			<h2>商品登録</h2>
+		</div>
 
-                <!-- ボタンエリア -->
-                <div class="form-actions">
+		<!-- 登録カード -->
+		<div class="table-card">
 
-                    <div style="display:flex; gap:10px; flex-wrap:wrap;">
+			<form th:action="@{/products}" th:object="${product}" method="post"
+				class="edit-form">
 
-                        <a th:href="@{/products/list}" class="back-btn">
-                            ← 商品一覧へ戻る
-                        </a>
 
-                    </div>
+			    <div class="error-message"
+			    	th:if="${#fields.hasErrors()}">
+				    <div th:errors="*{productNumber}"></div>
+				    <div th:errors="*{productName}"></div>
+				    <div th:errors="*{price}"></div>
+			    </div>
+					
+				<div class="form-group">
+					<label>商品コード</label> <input type="text" th:field="*{productNumber}"
+						placeholder="例：P001">
+				</div>
 
-                    <button type="submit" class="add-btn">
-                        登録する
-                    </button>
+				<div class="form-group">
+					<label>商品名</label> <input type="text" th:field="*{productName}"
+						placeholder="例：チョコレートケーキ">
+				</div>
 
-                </div>
+				<div class="form-group">
+					<label>単価</label> <input type="number" th:field="*{price}"
+						placeholder="例：1200">
+				</div>
 
-            </form>
 
-        </div>
 
-    </main>
+				<!-- ボタンエリア -->
+				<div class="form-actions">
+
+					<div style="display: flex; gap: 10px; flex-wrap: wrap;">
+
+						<a th:href="@{/products/list}" class="back-btn"> ← 商品一覧へ戻る </a>
+
+					</div>
+
+					<button type="submit" class="add-btn">登録する</button>
+
+				</div>
+
+			</form>
+
+		</div>
+
+	</main>
 
 </body>
 </html>

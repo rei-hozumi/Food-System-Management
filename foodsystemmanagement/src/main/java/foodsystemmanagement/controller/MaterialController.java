@@ -53,7 +53,7 @@ public class MaterialController {
 			return "redirect:/materials/list";
 		}
 	
-	//商品編集
+	//編集
 	@GetMapping("/materials/edit/{id}")
 		public String edit(@PathVariable Long id,Model model) {
 		Material material = materialService.findById(id);
@@ -61,7 +61,12 @@ public class MaterialController {
 		return "materials/edit";
 	}
 	@PostMapping("/materials/update")
-		public String update(Material material,RedirectAttributes redirectAttributes) {
+		public String update(@Valid @ModelAttribute("material")Material material,BindingResult result,
+				Model model,RedirectAttributes redirectAttributes) {
+	    if (result.hasErrors()) {
+	        model.addAttribute("material", material);
+	        return "materials/edit";
+	    }
 		materialService.update(material);
 		redirectAttributes.addFlashAttribute("message", "原材料を修正しました。");
 		return "redirect:/materials/list";
@@ -76,7 +81,7 @@ public class MaterialController {
 	    return "redirect:/materials/list";
 	}
 	
-	//商品検索
+	//検索
 	@GetMapping("/materials/search")
 		public String search(@RequestParam(defaultValue = "") String  keyword,Model model) {
 		model.addAttribute("materialList",materialService.search(keyword));

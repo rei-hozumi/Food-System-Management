@@ -57,8 +57,8 @@ public class ProductionPlanController {
 	public String newProductionPlan(Model model) {
 		model.addAttribute("productionPlan", new ProductionPlan());
 		model.addAttribute("users", userService.findAll());
-		model.addAttribute("products",productService.findAll());
-		model.addAttribute("orders",orderService.findAll());
+		model.addAttribute("products", productService.findAll());
+		model.addAttribute("orders", orderService.findAll());
 		return "productionPlans/register";
 	}
 
@@ -66,23 +66,23 @@ public class ProductionPlanController {
 	@PreAuthorize("hasAnyRole('ADMIN','PLANNER')")
 	public String create(
 			@Valid @ModelAttribute("productionPlan") ProductionPlan productionPlan,
-			@RequestParam Long orderId,
-			BindingResult result,Model model,
+			BindingResult result,
+			@RequestParam(required = false) Long orderId,
+			 Model model,
 			RedirectAttributes redirectAttributes) {
-	    Order order = orderService.findById(orderId);
 
-	    productionPlan.setOrder(order);
-	    productionPlan.setProduct(order.getProduct());
-		/*
-		if(productionPlanService.existsOrder(productionPlan.getOrder())) {
-			result.rejectValue("order","duplicate","この注文は既に製造計画に登録されています。");
-		}
-		*/
+	    if (orderId == null) {
+	        result.rejectValue("order", "required", "注文番号を選択してください");
+	    } else {
+	        Order order = orderService.findById(orderId);
+	        productionPlan.setOrder(order);
+	        productionPlan.setProduct(order.getProduct());
+	    }
 		if (result.hasErrors()) {
 			model.addAttribute("productionPlan", productionPlan);
-		    model.addAttribute("users", userService.findAll());
-		    model.addAttribute("products", productService.findAll());
-		    model.addAttribute("orders", orderService.findAll());
+			model.addAttribute("users", userService.findAll());
+			model.addAttribute("products", productService.findAll());
+			model.addAttribute("orders", orderService.findAll());
 			return "productionPlans/register";
 		}
 		productionPlanService.save(productionPlan);
@@ -95,39 +95,39 @@ public class ProductionPlanController {
 	@PreAuthorize("hasAnyRole('ADMIN','PLANNER','WORKER')")
 	public String edit(@PathVariable Long id, Model model) {
 		ProductionPlan productionPlan = productionPlanService.findById(id);
-		
-	    System.out.println(productionPlan.getProductionDate());
-	    System.out.println(productionPlan.getProductionDate().getClass());
-		
+
+		System.out.println(productionPlan.getProductionDate());
+		System.out.println(productionPlan.getProductionDate().getClass());
+
 		model.addAttribute("productionPlan", productionPlan);
 		model.addAttribute("users", userService.findAll());
-		model.addAttribute("products",productService.findAll());
-		model.addAttribute("orders",orderService.findAll());
+		model.addAttribute("products", productService.findAll());
+		model.addAttribute("orders", orderService.findAll());
 		return "productionPlans/edit";
 	}
 
 	@PostMapping("/productionPlans/update")
 	@PreAuthorize("hasAnyRole('ADMIN','PLANNER','WORKER')")
-	public String update(
-			@Valid 
-			ProductionPlan productionPlan,BindingResult result,Model model,
+	public String update(@Valid @ModelAttribute("productionPlan") ProductionPlan productionPlan,
+			BindingResult result, Model model,
 			RedirectAttributes redirectAttributes) {
-		
-	    if (result.hasErrors()) {
-	    	model.addAttribute("productionPlan", productionPlan);
-		    model.addAttribute("users", userService.findAll());
-		    model.addAttribute("products", productService.findAll());
-		    model.addAttribute("orders", orderService.findAll());
+		if (result.hasErrors()) {
+			model.addAttribute("productionPlan", productionPlan);
+			model.addAttribute("users", userService.findAll());
+			model.addAttribute("products", productService.findAll());
+			model.addAttribute("orders", orderService.findAll());
 			return "productionPlans/edit";
 		}
 		Long orderId = productionPlan.getOrder().getId();
 		Long assignedUserId = productionPlan.getAssignedUser().getId();
-	    Order order = orderService.findById(orderId);
-	    LocalDate productionDate = productionPlan.getProductionDate();
-	    productionPlan.setAssignedUser(userService.findById(assignedUserId));
-	    productionPlan.setOrder(order);
-	    productionPlan.setProduct(order.getProduct());
-	    productionPlan.setProductionDate(productionDate);
+		
+		Order order = orderService.findById(orderId);
+		LocalDate productionDate = productionPlan.getProductionDate();
+		
+		productionPlan.setAssignedUser(userService.findById(assignedUserId));
+		productionPlan.setOrder(order);
+		productionPlan.setProduct(order.getProduct());
+		productionPlan.setProductionDate(productionDate);
 
 		productionPlanService.update(productionPlan);
 		redirectAttributes.addFlashAttribute("message", "製造計画を修正しました。");
@@ -146,10 +146,10 @@ public class ProductionPlanController {
 	//検索
 	@GetMapping("/productionPlans/search")
 	@PreAuthorize("hasAnyRole('ADMIN','PLANNER''WORKER')")
-		public String search(@RequestParam(defaultValue = "") String keyword,Model model) {
-		model.addAttribute("productionPlanList",productionPlanService.search(keyword));
-		model.addAttribute("keyword",keyword);
+	public String search(@RequestParam(defaultValue = "") String keyword, Model model) {
+		model.addAttribute("productionPlanList", productionPlanService.search(keyword));
+		model.addAttribute("keyword", keyword);
 		return "productionPlans/list";
-		}
+	}
 
 }

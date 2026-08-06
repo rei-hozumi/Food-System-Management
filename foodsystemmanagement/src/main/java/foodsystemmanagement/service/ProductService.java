@@ -25,6 +25,7 @@ public class ProductService {
 	}
 	//編集
 	public Product findById(Long id) {
+		
 		return productRepository.findById(id).orElseThrow();
 	}
 	public void update(Product product) {

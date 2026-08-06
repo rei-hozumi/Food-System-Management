@@ -33,6 +33,16 @@
 			<form th:action="@{/materials/update}" th:object="${material}"
 				method="post" class="edit-form">
 
+				<div class="error-message" th:if="${#fields.hasErrors()}">
+					<div th:errors="*{materialCode}"></div>
+					<div th:errors="*{materialName}"></div>
+					<div th:errors="*{standard}"></div>
+					<div th:errors="*{price}"></div>
+					<div th:errors="*{stockQuantity}"></div>
+					<div th:errors="*{unit}"></div>
+					<div th:errors="*{expirationDate}"></div>
+				</div>
+
 				<input type="hidden" th:field="*{id}">
 
 				<div class="form-group">
@@ -41,8 +51,8 @@
 					<label>規格</label> <input type="text" th:field="*{standard}">
 					<label>単価</label> <input type="number" th:field="*{price}">
 					<label>在庫数</label> <input type="number" th:field="*{stockQuantity}">
-					<label>単位</label> <input type="text" th:field="*{unit}"> <label>賞味期限</label>
-					<input type="date" th:field="*{expirationDate}">
+					<label>単位</label> <input type="text" th:field="*{unit}">
+					<label>賞味期限</label><input type="date" th:field="*{expirationDate}">
 				</div>
 
 				<div class="form-actions">

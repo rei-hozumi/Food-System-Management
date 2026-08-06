@@ -31,13 +31,14 @@ public class Material {
 	
 	@NotNull(message = "価格を入力してください")
 	@Positive(message = "０より大きい値を入力してください")
-	@Column(nullable=false,precision=5,scale=2)
+	@Column(nullable=false,precision=10,scale=2)
 	private BigDecimal price;
 	
 	@NotNull(message = "賞味期限を入力してください")
 	@Column(name="expiration_date")
 	private LocalDate expirationDate;
 	
+	@NotNull(message = "単位を入力してください")
 	@Column(nullable=false)
 	private String unit;
 	
@@ -45,6 +46,7 @@ public class Material {
 	@Positive(message = "0より大きい数字を入力してください")
 	private int stockQuantity;
 	
+	@NotNull(message = "規格を入力してください")
 	@Column(nullable=false)
 	private String standard;
 	

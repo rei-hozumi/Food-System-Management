@@ -18,7 +18,7 @@ public interface OrderRepository extends JpaRepository<Order, Long> {
     List<Order> findByOrderDateBetween(LocalDate start,LocalDate end);
     //最新の注文番号の取得
 	Order findTopByOrderByIdDesc();
-    
+
 	/*	@Query("""
 				SELECT COALESCE(SUM(o.totalPrice),0)
 				FROM Order o

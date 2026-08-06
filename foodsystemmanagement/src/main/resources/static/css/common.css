@@ -21,10 +21,16 @@ header{
     font-weight: bold;
 }
 
+.loginName{
+ white-space:nowrap;
+}
+
 .header-right {
-    display: flex;
-    align-items: center;
-    gap: 10px;
+    width:400px;
+    display:flex;
+    justify-content:flex-end;
+    align-items:center;
+    gap:15px;
 }
 
 .header-right button {

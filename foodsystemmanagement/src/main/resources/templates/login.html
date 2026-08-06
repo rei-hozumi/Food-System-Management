@@ -2,51 +2,70 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <!-- リセットCSS -->
-        <link rel="stylesheet" href="https://unpkg.com/ress/dist/ress.min.css">
+<!-- リセットCSS -->
+<link rel="stylesheet" href="https://unpkg.com/ress/dist/ress.min.css">
 
-    <!-- Googleフォント -->
-        <link rel="preconnect" href="https://fonts.googleapis.com">
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=Philosopher&display=swap" rel="stylesheet">
-        
-    <!-- オリジナルCSS -->
-		<link rel="stylesheet" th:href="@{/css/style.css}">
-		<link rel="stylesheet" th:href="@{/css/login.css}">
+<!-- Googleフォント -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link
+	href="https://fonts.googleapis.com/css2?family=Philosopher&display=swap"
+	rel="stylesheet">
+
+<!-- オリジナルCSS -->
+<link rel="stylesheet" th:href="@{/css/style.css}">
+<link rel="stylesheet" th:href="@{/css/login.css}">
 
 <title>Food System Management - ログイン</title>
 </head>
 
 <body>
-<div class="login-container">
-    <div class="error-message" th:if="${param.logout}">ログアウトしました。</div>
-    <div class="error-message" th:if="${param.error}">ログインIDまたはパスワードが違います。</div>
-    
-</div>
-<div class="form-box">
+	<div class="login-container">
+		<div class="error-message" th:if="${param.logout}">ログアウトしました。</div>
+		<div class="error-message" th:if="${param.error}">ログインIDまたはパスワードが違います。</div>
 
-    <h1 class="title">Food System Management</h1>
-    <h2>ログイン</h2>
-    
+	</div>
+	<div class="form-box">
 
+		<h1 class="title">Food System Management</h1>
+		<h2>ログイン</h2>
 
 
-	<form th:action="@{/login}" method="post">
-	    <div class="form-group">
-	        <label>社員番号：</label>
-	        <input type="text" name="username">
-	
-	        <label>パスワード：</label>
-	        <input type="password" name="password">
-	    </div>
-	
-	    <button type="submit" class="login-btn">ログイン</button>
-	</form>
 
 
-</div>
+		<form id="loginForm" th:action="@{/login}" method="post">
+			<div class="form-group">
+				<label>社員番号：</label> <input type="text" id="username"
+					name="username"> <label>パスワード：</label> <input
+					type="password" id="password" name="password">
+			</div>
+
+			<button type="submit" class="login-btn">ログイン</button>
+		</form>
+
+
+	</div>
+
+	<script>
+		document
+				.getElementById("loginForm")
+				.addEventListener(
+						"submit",
+						function(e) {
+
+							const id = document.getElementById("username").value
+									.trim();
+							const pass = document.getElementById("password").value
+									.trim();
+							if (id === "" || pass === "") {
+								e.preventDefault();
+								document.getElementById("error").textContent = "ログインIDとパスワードを入力してください。";
+							}
+						});
+	</script>
+
 
 </body>
 </html>

@@ -15,7 +15,7 @@ public class User {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
-	@NotBlank(message = "ログインIDを入力してください")
+	@NotBlank(message = "社員番号を入力してください")
 	@Column(name = "login_id", unique = true, nullable = false, length = 10)
 	private String loginId;
 
@@ -30,6 +30,9 @@ public class User {
 	@NotBlank(message = "権限を選択してください")
 	@Column(nullable = false, length = 50)
 	private String role;
+	
+	//ユーザーの無効化
+	private boolean enabled=true;
 	
 	public User() {}
 	
@@ -80,6 +83,13 @@ public class User {
 		this.role=role;
 	}
 	
+    public boolean isEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
+    }
 	
 	
 }
