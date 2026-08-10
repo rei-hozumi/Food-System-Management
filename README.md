@@ -2,7 +2,7 @@
 
 # 開発者
 - 保住 麗衣
-- GitHub:
+
 
 ---
 
@@ -316,8 +316,8 @@ http://localhost:8080
 
 ## ドキュメント
 
--[要件定義・システム・DB設計](docs/要件定義・システム・DB設計.md)<br>
--[テスト仕様書](docs/Food_System_Management_テスト仕様書.xlsx)
+-[要件定義・システム・DB設計](foodsystemmanagement/docs/要件定義・システム・DB設計.md)<br>
+-[テスト仕様書](foodsystemmanagement/docs/Food_System_Management_テスト仕様書.xlsx)
 
 
 
